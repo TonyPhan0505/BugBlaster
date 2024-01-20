@@ -52,13 +52,11 @@ function* signUpSaga(action) {
     const {
         teamId,
         emailAddress,
-        name,
         password
     } = action.payload;
     const res = yield signUp(
         teamId,
         emailAddress,
-        name,
         password
     );
     if (res && res.data.success) {

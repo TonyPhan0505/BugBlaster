@@ -1,11 +1,16 @@
 ////////////////// Import dependencies //////////////////
 import React from 'react';
+import NavBar from '../components/sign_up/NavBar.component';
+import Form from '../components/sign_up/Form.component';
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
 export default function SignUpPage() {
   return (
-    <div></div>
+    <div>
+      <NavBar />
+      <Form />
+    </div>
   )
 }
 /////////////////////////////////////////////

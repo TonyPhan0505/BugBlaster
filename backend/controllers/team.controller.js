@@ -31,12 +31,10 @@ exports.login = (req, res) => {
 exports.signUp = (req, res) => {
     const teamId = req.body.teamId;
     const emailAddress = req.body.emailAddress;
-    const name = req.body.name;
     const password = req.body.password;
     const newTeam = new Team({
         id: teamId,
         emailAddress: emailAddress,
-        name: name,
         hashedPassword: bcrypt.hashSync(password, 10)
     });
     newTeam.save().then(

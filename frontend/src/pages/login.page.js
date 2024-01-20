@@ -1,6 +1,5 @@
 ////////////////// Import dependencies //////////////////
 import React from 'react';
-
 import NavBar from "../components/login/NavBar.component";
 import Form from "../components/login/Form.component";
 ////////////////////////////////////////////////////////
@@ -10,12 +9,8 @@ export default function LoginPage() {
   return (
     <div>
       <NavBar />
-      <Form />
+      <Form/>
     </div>
   )
 }
 /////////////////////////////////////////////
-
-////////////////// Styles //////////////////
-const styles = {};
-///////////////////////////////////////////
