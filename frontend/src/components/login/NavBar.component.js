@@ -1,3 +1,4 @@
+///////////////////////// Import Dependencies /////////////////////////
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from './assets/logoBugblaster.png';
@@ -12,7 +13,9 @@ export default function NavBarSection() {
             </div>
             <ul style={styles.navList}>
                 <li style={styles.navItem}>
-                    <NavLink to="/">Sign up</NavLink>
+                    <button style={styles.button}>
+                        <NavLink to="/">Sign up</NavLink>
+                    </button>
                 </li>
             </ul>
         </nav>
@@ -40,5 +43,14 @@ const styles = {
     },
     navItem: {
         marginLeft: '10px', 
+    },
+    button: {
+        backgroundColor: '#007bff',
+        color: '#fff',
+        border: 'none',
+        padding: '10px 15px',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        textDecoration: 'none',
     },
 };
