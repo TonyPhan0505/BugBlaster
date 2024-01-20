@@ -5,11 +5,19 @@ import React from 'react';
 ////////////////// Component //////////////////
 export default function NavBar() {
   return (
-    <div>Hello</div>
+    <div style={styles.root}>Hello</div>
   )
 }
 /////////////////////////////////////////////
 
 ////////////////// Styles //////////////////
-const styles = {};
+const styles = {
+  root: {
+    display: 'flex',
+    width: "100%",
+    height: "90px",
+    alignItems: 'center',
+    
+  }
+};
 ///////////////////////////////////////////
