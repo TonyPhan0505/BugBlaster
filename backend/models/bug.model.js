@@ -36,6 +36,10 @@ const BugSchema = new Schema({
     },
     solution: {
         type: String,
+        trim: true
+    },
+    teamId: {
+        type: String,
         required: true,
         trim: true
     }

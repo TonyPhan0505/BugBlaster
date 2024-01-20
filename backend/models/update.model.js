@@ -24,6 +24,16 @@ const UpdateSchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    bugId: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    teamId: {
+        type: String,
+        required: true,
+        trim: true
     }
 });
 ///////////////////////////////////////////
