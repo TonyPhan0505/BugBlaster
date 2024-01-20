@@ -22,14 +22,14 @@ const persistConfig = {
 const rootReducer = combineReducers({
     team: teamReducer,
     bug: bugReducer,
-    update: updateReducer
+    updater: updateReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: [sagaMiddleware]
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware)
 });
 
 sagaMiddleware.run(rootSaga);

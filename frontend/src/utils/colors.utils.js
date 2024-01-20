@@ -1,7 +1,9 @@
 module.exports = {
-    one: "#9EC8B9", // dark blue
-    two: "#5C8374", // darker green
-    three: "#1B4242", // dark green
-    four: "#092635", // light green
-    five: "white"
+    one: "#9EC8B9", // light green
+    two: "#5C8374", // dark green
+    three: "#1B4242", // darker green
+    four: "#092635", // dark blue
+    five: "white",
+    six: "black",
+    seven: '#FAF9F6', // pink white
 };

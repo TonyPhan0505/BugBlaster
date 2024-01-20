@@ -13,7 +13,8 @@ import {
     loginReducer,
     resetLoginReducer,
     signUpReducer,
-    resetSignUpReducer
+    resetSignUpReducer,
+    logOutReducer
 } from "../slices/team.slice";
 ///////////////////////////////////////////////////
 
@@ -79,6 +80,10 @@ function* signUpSaga(action) {
 function* resetSignUpSaga() {
     yield put(resetSignUpReducer());
 }
+
+function* logOutSaga() {
+    yield put(logOutReducer());
+}
 //////////////////////////////////////////
 
 /////////////// Listeners ////////////////
@@ -96,5 +101,9 @@ export function* listenSignUp() {
 
 export function* listenResetSignUp() {
     yield takeEvery("team/reset_sign_up", resetSignUpSaga);
+}
+
+export function* listenLogOut() {
+    yield takeEvery("team/logout", logOutSaga);
 }
 /////////////////////////////////////////

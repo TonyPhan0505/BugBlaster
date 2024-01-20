@@ -26,6 +26,9 @@ export const teamSlice = createSlice({
         },
         resetSignUpReducer: (state) => {
             state.isSignedUp = 2;
+        },
+        logOutReducer: (state) => {
+            state.currentTeam = {};
         }
     }
 });
@@ -36,7 +39,8 @@ export const {
     loginReducer,
     resetLoginReducer,
     signUpReducer,
-    resetSignUpReducer
+    resetSignUpReducer,
+    logOutReducer
 } = teamSlice.actions;
 ////////////////////////////////////////////
 
