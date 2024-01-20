@@ -55,18 +55,20 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    const update = req.body.update;
-    Update.updateOne({ id: update.id }, {
-        details: update.details,
-        location: update.location
+    const updateId = req.body.updateId;
+    const details = req.body.details;
+    const location = req.body.location;
+    Update.updateOne({ id: updateId }, {
+        details: details,
+        location: location
     }).then(
         async () => {
-            const updatedUpdate = await Update.findOne({ id: update.id });
+            const updatedUpdate = await Update.findOne({ id: updateId });
             return res.status(200).json({ success: true, update: updatedUpdate, message: `Successfully updated update ${updatedUpdate.id}.` });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to update update ${update.id}. ${err}.` });
+            return res.status(500).json({ success: false, message: `Failed to update update ${updateId}. ${err}.` });
         }
     );
 };
