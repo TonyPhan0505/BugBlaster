@@ -1,7 +1,7 @@
 ///////////////////////// Import Dependencies /////////////////////////
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from './assets/logoBugblaster.png';
+import logo from '../../assets/logoBugblaster.png'
 
 ///////////////////////// Component /////////////////////////
 export default function NavBarSection() {
@@ -54,3 +54,4 @@ const styles = {
         textDecoration: 'none',
     },
 };
+

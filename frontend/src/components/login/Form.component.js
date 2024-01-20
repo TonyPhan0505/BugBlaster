@@ -3,28 +3,25 @@ import React from "react";
 
 
 ///////////////////////// Helper /////////////////////////
-
-
-
 ///////////////////////// Component /////////////////////////
 export default function Login() {
     return (
-        <div style={loginStyles.container}>
-            <label style={loginStyles.label}>Username/Email:</label>
-            <input type="text" style={loginStyles.input} placeholder="Enter your username or email" />
+        <div style={styles.container}>
+            <label style={styles.label}>Email:</label>
+            <input type="text" style={styles.input} placeholder="Enter your email:" />
 
-            <label style={loginStyles.label}>Password:</label>
-            <input type="password" style={loginStyles.input} placeholder="Enter your password" />
+            <label style={styles.label}>Password:</label>
+            <input type="password" style={styles.input} placeholder="Enter your password" />
 
-            <button style={loginStyles.button}>Login</button>
+            <button style={styles.button}>Login</button>
         </div>
     );
 }
-
-
-
 ///////////////////////// Styles /////////////////////////
-const loginStyles = {
+const styles = {
+    root:{
+        backgroundColor: '#9EC8B9',
+    },
     container: {
         maxWidth: '300px', 
         margin: 'auto', 
