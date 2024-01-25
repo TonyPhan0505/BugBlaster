@@ -5,7 +5,7 @@ const Bug = require('../models/bug.model');
 //////////////////////////// Callbacks //////////////////////////////
 exports.getBulk = (req, res) => {
     const teamId = req.body.teamId;
-    Bug.find({ teamId: teamId }).then(
+    Bug.find({ teamId: teamId }).sort({ _id: -1 }).exec().then(
         (bugs) => {
             return res.status(200).json({ success: true, bugs: bugs, message: "Successfully fetched bugs." });
         }

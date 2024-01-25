@@ -30,7 +30,8 @@ const styles = {
     width: "100%",
     height: "5.625rem",
     alignItems: 'center',
-    backgroundColor: Colors.five
+    backgroundColor: Colors.five,
+    borderBottom: `2px solid ${Colors.eight}`
   },
 
   logoFrame: {

@@ -55,9 +55,19 @@ export default function HomePage() {
     navigate("/create_bug");
   }
 
+  function navAction() {
+    dispatch({
+      type: "team/logout"
+    });
+    navigate("/");
+  }
+
   return (
     <div style={styles.root}>
-      <NavBar />
+      <NavBar 
+        actionText="Log out"
+        action={navAction}
+      />
       <div style={styles.main}>
         <div style={styles.searchSortFrame}>
           <div style={styles.searchFrame}>
@@ -96,7 +106,7 @@ export default function HomePage() {
                 {
                   getFilteredBugs().map((bug) => {
                     return (
-                      <BugCard bug={bug}/>
+                      <BugCard key={bug.id} bug={bug}/>
                     )
                   })
                 }
@@ -150,14 +160,14 @@ const styles = {
     borderBottomWidth: "2px",
     borderColor: Colors.three,
     width: "12.5rem",
-    fontSize: '1rem',
+    fontSize: '1.2rem',
     marginLeft: "20px"
   },
 
   chosenOptionButton: {
     width: "6.5rem",
     height: "1.9rem",
-    backgroundColor: Colors.four,
+    backgroundColor: Colors.two,
     borderWidth: "0",
     borderRadius: "5px",
     color: Colors.five,

@@ -80,6 +80,7 @@ function* resetSignUpSaga() {
 }
 
 function* logOutSaga() {
+    localStorage.removeItem("accessToken");
     yield put(logOutReducer());
 }
 //////////////////////////////////////////

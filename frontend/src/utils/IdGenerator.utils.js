@@ -1,6 +1,6 @@
 export default function IdGenerator() {
     const timestamp = new Date().getTime();
-    const randomPart = Math.random().toString(36).substring(2, 10);
+    const randomPart = Math.random().toString(36).substring(2, 7);
     let uniqueId = `${timestamp}${randomPart.toUpperCase()}`;
     uniqueId = uniqueId.split("");
     const n = uniqueId.length;
@@ -10,6 +10,7 @@ export default function IdGenerator() {
         uniqueId[i] = uniqueId[j];
         uniqueId[j] = tmp;
     }
-    uniqueId = uniqueId.join("").slice(0, 10);
+    console.log(uniqueId);
+    uniqueId = uniqueId.join("").slice(0, 5);
     return uniqueId;
 }

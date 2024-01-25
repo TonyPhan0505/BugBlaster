@@ -26,7 +26,7 @@ export default function Form() {
         });
         window.alert("Failed to sign up.")
     }
-}, [isSignedUp]);
+  }, [isSignedUp]);
 
   function signUp() {
     dispatch({

@@ -17,8 +17,8 @@ export default function LoginPage() {
   return (
     <div>
       <NavBar 
-        action={navAction}
         actionText="Sign up"
+        action={navAction}
       />
       <div style={styles.main}>
         <Form/>

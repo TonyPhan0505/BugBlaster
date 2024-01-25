@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 ////////////////// Component //////////////////
 export default function CreateBugPage() {
   const navigate = useNavigate();
-  const id = IdGenerator();
+  const [ id, _ ] = useState(IdGenerator());
   const [ briefDescription, setBriefDescription ] = useState("");
   const [ detailedDescription, setDetailedDescription ] = useState("");
   const [ assignees, setAssignees ] = useState("");
@@ -37,7 +37,7 @@ export default function CreateBugPage() {
       type: "bug/create",
       payload: {
         id: id,
-        datetime: new Date(),
+        datetime: new Date().getTime(),
         briefDescription: briefDescription,
         detailedDescription: detailedDescription,
         assignees: assignees,
@@ -50,11 +50,18 @@ export default function CreateBugPage() {
     navigate("/home");
   }
 
+  function navAction() {
+    dispatch({
+      type: "team/logout"
+    });
+    navigate("/");
+  }
+
   return (
     <div style={styles.root}>
       <NavBar 
-        createBugHandler={createBugHandler}
-        cancelHandler={cancelHandler}
+        actionText="Log out"
+        action={navAction}
       />
       <div style={styles.main}>
         <p style={styles.id}>Bug Id: #{id}</p>
@@ -64,6 +71,7 @@ export default function CreateBugPage() {
           placeholder="brief description"
           value={briefDescription}
           onChange={(e) => setBriefDescription(e.target.value)}
+          maxLength={23}
         />
         <textarea
           value={detailedDescription}
