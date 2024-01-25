@@ -2,23 +2,10 @@
 import React from 'react';
 import Colors from "../../utils/colors.utils";
 import logo from "../../assets/logoBugblaster.png";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
-export default function NavBar() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  function signOut() {
-    dispatch({
-      type: "team/logout"
-    });
-    localStorage.removeItem("accessToken");
-    navigate("/");
-  }
-
+export default function NavBar({ actionText, action }) {
   return (
     <div style={styles.root}>
       <div style={styles.logoFrame}>
@@ -29,7 +16,7 @@ export default function NavBar() {
         />
       </div>
       <div style={styles.navFrame}>
-        <button onClick={signOut} style={styles.logOutButton}>Sign out</button>
+        <button onClick={action} style={styles.button}>{actionText}</button>
       </div>
     </div>
   )
@@ -41,7 +28,7 @@ const styles = {
   root: {
     display: 'flex',
     width: "100%",
-    height: "3.625rem",
+    height: "5.625rem",
     alignItems: 'center',
     backgroundColor: Colors.five
   },
@@ -54,7 +41,7 @@ const styles = {
   },
 
   logo: {
-    width: "9.375rem",
+    width: "11.375rem",
     height: "auto",
     marginLeft: "20px"
   },
@@ -67,17 +54,17 @@ const styles = {
     alignItems: "center"
   },
 
-  logOutButton: {
-    width: "7.5rem",
+  button: {
+    width: "6.6rem",
     height: "2.5rem",
     marginRight: "20px",
-    backgroundColor: Colors.two,
+    backgroundColor: Colors.four,
     borderWidth: "0",
     borderRadius: '5px',
     color: Colors.five,
     fontFamily: "Arial",
     cursor: 'pointer',
-    fontSize: '1rem',
+    fontSize: '0.85rem',
   }
 };
 ///////////////////////////////////////////

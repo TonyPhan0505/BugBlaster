@@ -19,7 +19,10 @@ export default function Form() {
                 type: "team/reset_login"
             });
             navigate("/home");
-        } else {
+        } else if (isLoggedIn === 0) {
+            dispatch({
+                type: "team/reset_login"
+            });
             window.alert("Wrong credentials.")
         }
     }, [isLoggedIn]);
@@ -35,7 +38,7 @@ export default function Form() {
     }
 
     return (
-        <div style={styles.container}>
+        <div style={styles.root}>
             <label style={styles.label}>Email:</label>
             <input 
                 type="text" 
@@ -62,15 +65,12 @@ export default function Form() {
 
 ////////////////// Styles //////////////////
 const styles = {
-  root:{
-      backgroundColor: '#9EC8B9',
-  },
-  container: {
-      maxWidth: '300px', 
+  root: {
+      width: '300px', 
       margin: 'auto', 
       paddingTop: '20px', 
       fontSize: "1.125rem",
-      marginTop: "30px"
+      marginTop: "100px"
   },
   label: {
       display: 'block',

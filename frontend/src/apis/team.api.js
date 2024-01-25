@@ -26,13 +26,11 @@ export const login = async (
 export const signUp = async (
     teamId,
     emailAddress,
-    name,
     password
 ) => {
     const response = await axios.post(`${backendURL}/team/sign_up`, {
         teamId: teamId,
         emailAddress: emailAddress,
-        name: name,
         password: password
     }).then(
         res => { 

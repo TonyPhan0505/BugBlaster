@@ -1,35 +1,78 @@
 ////////////////// Import dependencies //////////////////
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Colors from "../../utils/colors.utils";
+import { useSelector, useDispatch } from "react-redux";
+import IdGenerator from "../../utils/IdGenerator.utils";
+import { useNavigate } from "react-router-dom";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
 export default function Form() {
+  const dispatch = useDispatch();
+  const isSignedUp = useSelector(state => state.team.isSignedUp);
+  const navigate = useNavigate();
+  const [ emailAddress, setEmailAddress ] = useState("");
+  const [ password, setPassword ] = useState("");
+
+  useEffect(() => {
+    if (isSignedUp === 1) {
+        dispatch({
+            type: "team/reset_sign_up"
+        });
+        navigate("/home");
+    } else if (isSignedUp === 0) {
+        dispatch({
+          type: "team/reset_sign_up"
+        });
+        window.alert("Failed to sign up.")
+    }
+}, [isSignedUp]);
+
+  function signUp() {
+    dispatch({
+      type: "team/sign_up",
+      payload: {
+        teamId: IdGenerator(),
+        emailAddress: emailAddress,
+        password: password
+      }
+    });
+  }
+
   return (
-    <div style={styles.container}>
-        <label style={styles.label}>Email:</label>
-        <input type="text" style={styles.input} placeholder="Enter your email:" />
+    <div style={styles.root}>
+      <label style={styles.label}>Email:</label>
+      <input 
+          type="text" 
+          style={styles.input} 
+          placeholder="Enter your email:" 
+          value={emailAddress}
+          onChange={(e) => setEmailAddress(e.target.value)}
+      />
 
-        <label style={styles.label}>Password:</label>
-        <input type="password" style={styles.input} placeholder="Enter your password" />
+      <label style={styles.label}>Password:</label>
+      <input 
+          type="password" 
+          style={styles.input} 
+          placeholder="Enter your password" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+      />
 
-        <button style={styles.button}>Sign up</button>
-    </div>
+      <button onClick={signUp} style={styles.button}>Sign up</button>
+  </div>
 );
 }
 /////////////////////////////////////////////
 
 ////////////////// Styles //////////////////
 const styles = {
-  root:{
-      backgroundColor: '#9EC8B9',
-  },
-  container: {
-      maxWidth: '300px', 
-      margin: 'auto', 
-      paddingTop: '20px', 
-      fontSize: "1.125rem",
-      marginTop: "30px"
+  root: {
+    width: '300px', 
+    margin: 'auto', 
+    paddingTop: '20px', 
+    fontSize: "1.125rem",
+    marginTop: "100px"
   },
   label: {
       display: 'block',
@@ -38,13 +81,13 @@ const styles = {
       marginTop: "20px",
   },
   input: {
-      width: '100%',
-      padding: '8px',
-      marginBottom: '10px',
-      borderWidth: "0",
-      marginTop: "20px",
-      fontSize: "1rem",
-      backgroundColor: Colors.seven
+    width: '100%',
+    padding: '8px',
+    marginBottom: '10px',
+    borderWidth: "0",
+    marginTop: "20px",
+    fontSize: "1rem",
+    backgroundColor: Colors.seven
   },
   button: {
     width: "4.5rem",
