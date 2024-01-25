@@ -31,7 +31,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     team: teamReducer,
     bug: bugReducer,
-    updater: updateReducer
+    update: updateReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

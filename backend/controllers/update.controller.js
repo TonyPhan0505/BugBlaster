@@ -1,5 +1,6 @@
 ///////////////////////////// Import dependencies ///////////////////////////////
 const Update = require('../models/update.model');
+const Bug = require('../models/bug.model');
 ////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////// Callbacks //////////////////////////////
@@ -44,7 +45,10 @@ exports.create = (req, res) => {
         teamId: update.teamId
     });
     newUpdate.save().then(
-        (update) => {
+        async (update) => {
+            const bug = await Bug.findOne({ id: update.bugId });
+            bug.updates.unshift(update.id);
+            await bug.save();
             return res.status(200).json({ success: true, update: update, message: `Successfully created update ${update.id}.` });
         }
     ).catch(
@@ -78,7 +82,11 @@ exports.delete = (req, res) => {
     Update.deleteOne({
         id: updateId
     }).then(
-        () => {
+        async () => {
+            const update = await Update.findOne({ id: updateId });
+            const bug = await Bug.findOne({ id: update.bugId });
+            bug.updates = bug.updates.filter((id) => { return id !== updateId });
+            await bug.save();
             return res.status(200).json({ success: true, message: `Successfully deleted update ${updateId}.` });
         }
     ).catch(

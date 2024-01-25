@@ -58,7 +58,6 @@ exports.update = (req, res) => {
         briefDescription: bug.briefDescription,
         detailedDescription: bug.detailedDescription,
         assignees: bug.assignees,
-        updates: bug.updates,
         solution: bug.solution
     }).then(
         async () => {

@@ -6,5 +6,5 @@ module.exports = {
     five: "white",
     six: "black",
     seven: '#FAF9F6', // pink white
-    eight: "#D0D2D7"
+    eight: "#D0D2D7" // smokey white
 };

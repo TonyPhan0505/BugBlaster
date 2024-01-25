@@ -1,11 +1,14 @@
 ////////////////// Import dependencies //////////////////
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../components/shared/NavBar.component';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import Colors from "../utils/colors.utils";
 import LargeDataRow from '../components/shared/LargeDataRow.component';
+import UpdateCard from '../components/bug/UpdateCard.component';
+import Loader from '../components/shared/Loader.component';
+import { IoIosAdd } from "react-icons/io";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -18,10 +21,47 @@ export default function ManageBugPage() {
     const [ briefDescription, setBriefDescription ] = useState(bug.briefDescription);
     const [ detailedDescription, setDetailedDescription ] = useState(bug.detailedDescription);
     const [ assignees, setAssignees ] = useState(bug.assignees);
-    const [ updates, setUpdates ] = useState(bug.updates);
-    const [ solution, setSolution ] = useState(
-        bug.solution ? bug.solution : ""
-    );
+    const [ solution, setSolution ] = useState(bug.solution);
+    const updates = useSelector(state => state.update.updates);
+    const [ loading, setLoading ] = useState(true);
+    const hasFetchedBulk = useSelector(state => state.update.hasFetchedBulk);
+    const hasUpdated = useSelector(state => state.bug.hasUpdated);
+    
+    useEffect(() => {
+        dispatch({
+            type: "update/fetch_bulk",
+            payload: bug.id
+        });
+    }, []);
+
+    useEffect(() => {
+        if (hasFetchedBulk === 1) {
+            setLoading(false);
+            dispatch({
+                type: "update/reset_fetch_bulk"
+            });
+        } else if (hasFetchedBulk === 0) {
+            setLoading(false);
+            dispatch({
+                type: "update/reset_fetch_bulk"
+            });
+            window.alert("Failed to fetch updates for bug.");
+        }
+    }, [hasFetchedBulk]);
+
+    useEffect(() => {
+        if (hasUpdated === 1) {
+            dispatch({
+                type: "bug/reset_update"
+            });
+            navigate("/home");
+        } else if (hasUpdated === 0) {
+            dispatch({
+                type: "bug/reset_update"
+            });
+            window.alert("Failed to update bug.");
+        }
+    }, [hasUpdated]);
 
     function navAction() {
         dispatch({
@@ -32,10 +72,26 @@ export default function ManageBugPage() {
 
     function formattedData(data) {
         let formatted = data;
-        if (formatted[formatted.length - 1] !== ".") {
+        if (formatted.length > 0 && formatted[formatted.length - 1] !== ".") {
           formatted = formatted + ".";
         }
         return formatted;
+    }
+
+    function updateBug() {
+        dispatch({
+            type: "bug/update",
+            payload: {
+                briefDescription: briefDescription,
+                detailedDescription: detailedDescription,
+                assignees: assignees,
+                solution: solution
+            }
+        });
+    }
+
+    function navToHome() {
+        navigate("/home");
     }
 
     return (
@@ -72,6 +128,45 @@ export default function ManageBugPage() {
                         rows={3}
                         style={styles.multilineInputField}
                     />
+                    <p style={styles.prompt}>Assignees:</p>
+                    <input 
+                        type="text"
+                        style={styles.singleLineInputField}
+                        placeholder="brief description"
+                        value={formattedData(assignees)}
+                        onChange={(e) => setAssignees(e.target.value)}
+                    />
+                    <div style={styles.divider} />
+                    <div style={styles.updateTopBar}>
+                        <div style={styles.updateLeftTopBar}>
+                            <p style={styles.prompt}>Updates:</p>
+                        </div>
+                        <div style={styles.updateRightTopBar}>
+                            <IoIosAdd style={styles.addUpdateIcon}/>
+                        </div>
+                    </div>
+                    {
+                        loading ?
+                            <Loader loading={loading}/>
+                        :
+                            updates.map((update) => {
+                                return (
+                                    <UpdateCard key={update.id} update={update}/>
+                                )
+                            })
+                    }
+                    <div style={styles.divider} />
+                    <p style={styles.prompt}>Solution:</p>
+                    <textarea
+                        value={formattedData(solution)}
+                        onChange={(e) => setSolution(e.target.value)}
+                        rows={3}
+                        style={styles.multilineInputField}
+                    />
+                    <div style={styles.buttonsFrame}>
+                        <button onClick={updateBug} style={styles.updateButton}>Update bug</button>
+                        <button onClick={navToHome} style={styles.cancelButton}>Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,5 +235,70 @@ const styles = {
         borderRadius: "5px",
         marginTop: "20px"
     },
+
+    divider: {
+        width: "98%",
+        height: "1px",
+        backgroundColor: Colors.eight,
+        marginTop: "30px",
+        marginBottom: "10px"
+    },
+
+    updateTopBar: {
+        width: "100%",
+        display: "flex",
+        alignItems: "center"
+    },
+
+    updateLeftTopBar: {
+        width: "80%"
+    },
+
+    updateRightTopBar: {
+        width: "20%",
+        display: "flex",
+        justifyContent: "flex-end"
+    },
+
+    addUpdateIcon: {
+        fontSize: "2rem",
+        color: Colors.two,
+        cursor: "pointer"
+    },
+
+    buttonsFrame: {
+        width: "320px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "45px",
+        marginBottom: "100px"
+    },
+
+    updateButton: {
+        width: "7.5rem",
+        height: "2.5rem",
+        marginRight: "20px",
+        backgroundColor: Colors.two,
+        borderWidth: "0",
+        borderRadius: '5px',
+        color: Colors.five,
+        fontFamily: "Arial",
+        cursor: 'pointer',
+        fontSize: '1rem'
+    },
+    
+    cancelButton: {
+        width: "7.5rem",
+        height: "2.5rem",
+        marginRight: "20px",
+        backgroundColor: Colors.five,
+        border: `2px solid ${Colors.two}`,
+        borderRadius: '5px',
+        color: Colors.six,
+        fontFamily: "Arial",
+        cursor: 'pointer',
+        fontSize: '1rem'
+    }
 };
 ///////////////////////////////////////////
