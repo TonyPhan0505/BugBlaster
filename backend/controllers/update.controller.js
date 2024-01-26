@@ -8,7 +8,7 @@ exports.getBulk = (req, res) => {
     const bugId = req.body.bugId;
     Update.find({
         bugId: bugId
-    }).then(
+    }).sort({ _id: -1 }).exec().then(
         (updates) => {
             return res.status(200).json({ success: true, updates: updates, message: `Successfully fetched updates for bug ${bugId} from database.` });
         }
@@ -62,22 +62,17 @@ exports.update = (req, res) => {
     );
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
     const updateId = req.body.updateId;
-    Update.deleteOne({
-        id: updateId
-    }).then(
-        async () => {
-            const update = await Update.findOne({ id: updateId });
-            const bug = await Bug.findOne({ id: update.bugId });
-            bug.updates = bug.updates.filter((id) => { return id !== updateId });
-            await bug.save();
-            return res.status(200).json({ success: true, message: `Successfully deleted update ${updateId}.` });
-        }
-    ).catch(
-        err => {
-            return res.status(500).json({ success: false, message: `Failed to delete update ${updateId}. ${err}.` });
-        }
-    );
+    try {
+        const update = await Update.findOne({ id: updateId });
+        const bug = await Bug.findOne({ id: update.bugId });
+        bug.updates = bug.updates.filter((id) => { return id !== updateId });
+        await bug.save();
+        await Update.deleteOne({ id: updateId });
+        return res.status(200).json({ success: true, message: `Successfully deleted update ${updateId}.` });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: `Failed to delete update ${updateId}. ${err}.` });
+    }
 };
 ////////////////////////////////////////////////////////////////////

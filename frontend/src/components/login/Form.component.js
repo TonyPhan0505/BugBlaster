@@ -14,10 +14,6 @@ export default function Form() {
     const [ password, setPassword ] = useState("");
 
     useEffect(() => {
-        localStorage.removeItem("accessToken");
-    }, []);
-
-    useEffect(() => {
         if (isLoggedIn === 1) {
             dispatch({
                 type: "team/reset_login"

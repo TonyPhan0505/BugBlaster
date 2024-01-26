@@ -20,6 +20,12 @@ export default function CreateBugPage() {
   const hasCreated = useSelector(state => state.bug.hasCreated);
 
   useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      navigate("/");
+    }
+  }, []);
+
+  useEffect(() => {
     if (hasCreated === 1) {
       dispatch({
         type: "bug/reset_create"

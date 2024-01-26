@@ -20,6 +20,12 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      navigate("/");
+    }
+  }, []);
+
+  useEffect(() => {
     dispatch({
       type: "bug/fetch_bulk",
       payload: currentTeam.id

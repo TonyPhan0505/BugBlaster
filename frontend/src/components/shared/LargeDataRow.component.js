@@ -33,7 +33,7 @@ const styles = {
     },
   
     data: {
-      fontSize: "1.167rem",
+      fontSize: "1.055rem",
       fontFamily: "Arial",
       color: Colors.six,
       margin: "0px"

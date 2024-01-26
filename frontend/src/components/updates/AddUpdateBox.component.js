@@ -7,7 +7,14 @@ import AddPeriod from '../../utils/AddPeriod.utils';
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
-export default function AddUpdateBox({ bugId, setAddUpdateBoxOpened, fixLocation, setFixLocation, fixDetails, setFixDetails }) {
+export default function AddUpdateBox({ 
+  bugId, 
+  setAddUpdateBoxOpened, 
+  fixLocation, 
+  setFixLocation, 
+  fixDetails, 
+  setFixDetails 
+}) {
   const dispatch = useDispatch();
   const currentTeam = useSelector(state => state.team.currentTeam);
 
@@ -24,6 +31,9 @@ export default function AddUpdateBox({ bugId, setAddUpdateBoxOpened, fixLocation
           teamId: currentTeam.id
         }
       });
+      setAddUpdateBoxOpened(false);
+      setFixLocation("");
+      setFixDetails("");
     } else {
       window.alert("Inputs are too short.");
     }
@@ -65,7 +75,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     paddingLeft: "10px",
-    backgroundColor: Colors.eight,
+    backgroundColor: Colors.seven,
     marginTop: "20px",
     marginBottom: "20px",
     borderRadius: "5px",
@@ -75,7 +85,7 @@ const styles = {
   singleLineInputField: {
     width: "89%",
     height: '20px',
-    backgroundColor: Colors.seven,
+    backgroundColor: Colors.five,
     borderWidth: '0',
     fontSize: '1.055rem',
     fontFamily: "Arial",
@@ -87,7 +97,7 @@ const styles = {
   multilineInputField: {
     width: "89%",
     borderWidth: '0',
-    backgroundColor: Colors.seven,
+    backgroundColor: Colors.five,
     fontSize: '1.055rem',
     fontFamily: "Arial",
     padding: "12px",
@@ -122,10 +132,10 @@ const styles = {
     backgroundColor: Colors.five,
     border: `2px solid ${Colors.two}`,
     borderRadius: '5px',
-    color: Colors.six,
+    color: Colors.two,
     fontFamily: "Arial",
     cursor: 'pointer',
     fontSize: '0.89rem'
-}
+  }
 };
 ///////////////////////////////////////////

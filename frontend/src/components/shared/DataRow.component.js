@@ -25,8 +25,7 @@ const styles = {
       prompt: {
         fontSize: "1rem",
         fontFamily: "Arial",
-        color: Colors.three,
-        fontWeight: "bold",
+        color: Colors.six,
         marginTop: "0px",
         marginBottom: "0px",
         marginLeft: "0px",

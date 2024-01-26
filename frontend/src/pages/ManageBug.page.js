@@ -27,17 +27,40 @@ export default function ManageBugPage() {
     const updates = useSelector(state => state.update.updates);
     const [ loading, setLoading ] = useState(true);
     const hasFetchedBulk = useSelector(state => state.update.hasFetchedBulk);
+    const hasDeletedUpdate = useSelector(state => state.update.hasDeleted);
     const hasUpdated = useSelector(state => state.bug.hasUpdated);
     const [ addUpdateBoxOpened, setAddUpdateBoxOpened ] = useState(false);
     const [ fixLocation, setFixLocation ] = useState("");
     const [ fixDetails, setFixDetails ] = useState("");
-    
+    const hasDeletedBug = useSelector(state => state.bug.hasDeleted);
+
     useEffect(() => {
-        dispatch({
-            type: "update/fetch_bulk",
-            payload: bug.id
-        });
+        if (!localStorage.getItem("accessToken")) {
+            navigate("/");
+        } else {
+            dispatch({
+                type: "update/fetch_bulk",
+                payload: bug.id
+            });
+        }
     }, []);
+
+    useEffect(() => {
+        if (hasDeletedUpdate === 1) {
+            dispatch({
+                type: "update/reset_delete"
+            });
+            dispatch({
+                type: "update/fetch_bulk",
+                payload: bug.id
+            });
+        } else if (hasDeletedUpdate === 0) {
+            dispatch({
+                type: "update/reset_delete"
+            });
+            window.alert("Failed to delete update.");
+        }
+    }, [hasDeletedUpdate]);
 
     useEffect(() => {
         if (hasFetchedBulk === 1) {
@@ -67,6 +90,20 @@ export default function ManageBugPage() {
             window.alert("Failed to update bug.");
         }
     }, [hasUpdated]);
+
+    useEffect(() => {
+        if (hasDeletedBug === 1) {
+            dispatch({
+                type: "bug/reset_delete"
+            });
+            navigate("/home");
+        } else if (hasDeletedBug === 0) {
+            dispatch({
+                type: "bug/reset_delete"
+            });
+            window.alert("Failed to delete bug.");
+        }
+    }, [hasDeletedBug]);
 
     function navAction() {
         dispatch({
@@ -180,6 +217,7 @@ export default function ManageBugPage() {
                     {
                         addUpdateBoxOpened ?
                             <AddUpdateBox 
+                                bugId={bug.id}
                                 setAddUpdateBoxOpened={setAddUpdateBoxOpened}
                                 fixLocation={fixLocation}
                                 setFixLocation={setFixLocation}
@@ -194,7 +232,10 @@ export default function ManageBugPage() {
                         :
                             updates.map((update) => {
                                 return (
-                                    <UpdateCard key={update.id} update={update}/>
+                                    <UpdateCard 
+                                        key={update.id} 
+                                        update={update}
+                                    />
                                 )
                             })
                     }

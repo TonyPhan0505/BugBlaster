@@ -48,7 +48,7 @@ function* resetFetchBulkSaga() {
 }
 
 function* createSaga(action) {
-    const update = action.update;
+    const update = action.payload;
     const res = yield create(update);
     if (res && res.data.success) {
         const update = res.data.update;
