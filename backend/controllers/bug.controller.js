@@ -46,9 +46,15 @@ exports.update = (req, res) => {
     }).then(
         async () => {
             const updatedBug = await Bug.findOne({ id: bug.id });
-            if (bug.solution) {
+            if (bug.solution && bug.solution.length > 0) {
                 updatedBug.solution = bug.solution;
                 updatedBug.fixed = true;
+                await updatedBug.save();
+            } else if (!bug.solution && updatedBug.fixed) {
+                await Bug.updateOne({ id: bug.id }, {
+                    $unset: { ["solution"]: 1 }
+                });
+                updatedBug.fixed = false;
                 await updatedBug.save();
             }
             return res.status(200).json({ success: true, bug: updatedBug, message: `Successfully update bug ${updatedBug.id}.` });
