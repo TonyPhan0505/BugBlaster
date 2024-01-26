@@ -12,12 +12,6 @@ router.route('/get_bulk')
     updateController.getBulk
 );
 
-router.route('/get')
-.post(
-    authenticationController.authenticate,
-    updateController.get
-);
-
 router.route('/create')
 .post(
     authenticationController.authenticate,

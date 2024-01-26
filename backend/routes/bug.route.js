@@ -12,12 +12,6 @@ router.route('/get_bulk')
     bugController.getBulk
 );
 
-router.route('/get')
-.post(
-    authenticationController.authenticate,
-    bugController.get
-);
-
 router.route('/create')
 .post(
     authenticationController.authenticate,

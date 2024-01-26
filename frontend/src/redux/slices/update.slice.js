@@ -9,7 +9,6 @@ export const updateSlice = createSlice({
         updates: [],
         update: {},
         hasFetchedBulk: 2, // 0 = failed to fetch bulk, 1 = successfully fetched bulk, 2 = waiting
-        hasFetched: 2, // 0 = failed to fetch, 1 = successfully fetched, 2 = waiting
         hasCreated: 2, // 0 = failed to create, 1 = successfully created, 2 = waiting
         hasUpdated: 2, // 0 = failed to update, 1 = successfully updated, 2 = waiting
         hasDeleted: 2, // 0 = failed to delete, 1 = successfully deleted, 2 = waiting
@@ -22,14 +21,6 @@ export const updateSlice = createSlice({
         },
         resetFetchBulkReducer: (state) => {
             state.hasFetchedBulk = 2;
-        },
-        fetchReducer: (state, action) => {
-            const { status, update } = action.payload;
-            if (status === 1) { state.update = update; }
-            state.hasFetched = status;
-        },
-        resetFetchReducer: (state) => {
-            state.hasFetched = 2;
         },
         createReducer: (state, action) => {
             const { status, update } = action.payload;
@@ -80,8 +71,6 @@ export const updateSlice = createSlice({
 export const {
     fetchBulkReducer,
     resetFetchBulkReducer,
-    fetchReducer,
-    resetFetchReducer,
     createReducer,
     resetCreateReducer,
     updateReducer,

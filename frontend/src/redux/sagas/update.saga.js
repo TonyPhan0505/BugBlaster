@@ -1,7 +1,6 @@
 /////////////// Import dependencies ////////////////
 import {
     getBulk,
-    get,
     create,
     update,
     deleteUpdate
@@ -15,8 +14,6 @@ import {
 import {
     fetchBulkReducer,
     resetFetchBulkReducer,
-    fetchReducer,
-    resetFetchReducer,
     createReducer,
     resetCreateReducer,
     updateReducer,
@@ -48,29 +45,6 @@ function* fetchBulkSaga(action) {
 
 function* resetFetchBulkSaga() {
     yield put(resetFetchBulkReducer());
-}
-
-function* fetchSaga(action) {
-    const updateId = action.payload;
-    const res = yield get(updateId);
-    if (res && res.data.success) {
-        const update = res.data.update;
-        yield put(fetchReducer({
-            status: 1,
-            update: update
-        }));
-        console.log("SUCCESS: Successfully fetched update.");
-    } else {
-        yield put(fetchReducer({
-            status: 1,
-            update: undefined
-        }));
-        console.error("ERROR: Failed to fetch update.");
-    }
-}
-
-function* resetFetchSaga() {
-    yield put(resetFetchReducer());
 }
 
 function* createSaga(action) {
@@ -157,14 +131,6 @@ export function* listenFetchBulk() {
 
 export function* listenResetFetchBulk() {
     yield takeEvery("update/reset_fetch_bulk", resetFetchBulkSaga);
-}
-
-export function* listenFetch() {
-    yield takeEvery("update/fetch", fetchSaga);
-}
-
-export function* listenResetFetch() {
-    yield takeEvery("update/reset_fetch", resetFetchSaga);
 }
 
 export function* listenCreate() {

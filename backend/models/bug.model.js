@@ -11,6 +11,11 @@ const BugSchema = new Schema({
         unique: true,
         trim: true
     },
+    fixed: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     datetime: {
         type: Date,
         required: true
@@ -37,9 +42,8 @@ const BugSchema = new Schema({
     },
     solution: {
         type: String,
-        required: true,
-        trim: true,
-        default: "..."
+        required: false,
+        trim: true
     },
     teamId: {
         type: String,

@@ -19,21 +19,6 @@ exports.getBulk = (req, res) => {
     );
 };
 
-exports.get = (req, res) => {
-    const updateId = req.body.updateId;
-    Update.findOne({
-        id: updateId
-    }).then(
-        (update) => {
-            return res.status(200).json({ success: true, update: update, message: `Successfully fetched update ${updateId}.` });
-        }
-    ).catch(
-        err => {
-            return res.status(500).json({ success: false, message: `Failed to fetch update ${updateId} from database. ${err}.` });
-        }
-    );
-};
-
 exports.create = (req, res) => {
     const update = req.body.update;
     const newUpdate = new Update({

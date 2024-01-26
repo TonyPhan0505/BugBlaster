@@ -16,21 +16,6 @@ exports.getBulk = (req, res) => {
     );
 };
 
-exports.get = (req, res) => {
-    const bugId = req.body.bugId;
-    Bug.findOne({
-        id: bugId
-    }).then(
-        (bug) => {
-            return res.status(200).json({ success: true, bug: bug, message: `Successfully fetched bug ${bugId}.` });
-        }
-    ).catch(
-        err => {
-            return res.status(500).json({ success: false, message: `Failed to fetch bug ${bugId}. ${err}.` });
-        }
-    );
-};
-
 exports.create = (req, res) => {
     const bug = req.body.bug;
     const newBug = new Bug({
@@ -57,11 +42,15 @@ exports.update = (req, res) => {
     Bug.updateOne({ id: bug.id }, {
         briefDescription: bug.briefDescription,
         detailedDescription: bug.detailedDescription,
-        assignees: bug.assignees,
-        solution: bug.solution
+        assignees: bug.assignees
     }).then(
         async () => {
             const updatedBug = await Bug.findOne({ id: bug.id });
+            if (bug.solution) {
+                updatedBug.solution = bug.solution;
+                updatedBug.fixed = true;
+                await updatedBug.save();
+            }
             return res.status(200).json({ success: true, bug: updatedBug, message: `Successfully update bug ${updatedBug.id}.` });
         }
     ).catch(

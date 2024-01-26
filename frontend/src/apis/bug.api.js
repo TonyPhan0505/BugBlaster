@@ -17,19 +17,6 @@ export const getBulk = async (teamId) => {
     return response;
 };
 
-export const get = async (bugId) => {
-    const accessToken = localStorage.getItem('accessToken');
-    const response = await axios.post(`${backendURL}/bug/get`, {
-        accessToken: accessToken,
-        bugId: bugId
-    }).then(
-        res => { return res; }
-    ).catch(
-        err => { console.error(err); }
-    );
-    return response;
-};
-
 export const create = async (bug) => {
     const accessToken = localStorage.getItem('accessToken');
     const response = await axios.post(`${backendURL}/bug/create`, {

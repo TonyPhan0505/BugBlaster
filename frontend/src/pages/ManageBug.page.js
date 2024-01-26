@@ -9,6 +9,8 @@ import LargeDataRow from '../components/shared/LargeDataRow.component';
 import UpdateCard from '../components/bug/UpdateCard.component';
 import Loader from '../components/shared/Loader.component';
 import { IoIosAdd } from "react-icons/io";
+import AddPeriod from '../utils/AddPeriod.utils';
+import AddUpdateBox from '../components/updates/AddUpdateBox.component';
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -21,11 +23,14 @@ export default function ManageBugPage() {
     const [ briefDescription, setBriefDescription ] = useState(bug.briefDescription);
     const [ detailedDescription, setDetailedDescription ] = useState(bug.detailedDescription);
     const [ assignees, setAssignees ] = useState(bug.assignees);
-    const [ solution, setSolution ] = useState(bug.solution);
+    const [ solution, setSolution ] = useState(bug.solution ? bug.solution : "");
     const updates = useSelector(state => state.update.updates);
     const [ loading, setLoading ] = useState(true);
     const hasFetchedBulk = useSelector(state => state.update.hasFetchedBulk);
     const hasUpdated = useSelector(state => state.bug.hasUpdated);
+    const [ addUpdateBoxOpened, setAddUpdateBoxOpened ] = useState(false);
+    const [ fixLocation, setFixLocation ] = useState("");
+    const [ fixDetails, setFixDetails ] = useState("");
     
     useEffect(() => {
         dispatch({
@@ -70,33 +75,59 @@ export default function ManageBugPage() {
         navigate("/");
     }
 
-    function formattedData(data) {
-        let formatted = data;
-        if (formatted.length > 0 && formatted[formatted.length - 1] !== ".") {
-          formatted = formatted + ".";
+    function updateBug() {
+        if (briefDescription.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
+            if (solution.length > 1) {
+                dispatch({
+                    type: "bug/update",
+                    payload: {
+                        id: bug.id,
+                        briefDescription: AddPeriod(briefDescription),
+                        detailedDescription: AddPeriod(detailedDescription),
+                        assignees: AddPeriod(assignees),
+                        solution: AddPeriod(solution)
+                    }
+                });
+            } else {
+                dispatch({
+                    type: "bug/update",
+                    payload: {
+                        id: bug.id,
+                        briefDescription: AddPeriod(briefDescription),
+                        detailedDescription: AddPeriod(detailedDescription),
+                        assignees: AddPeriod(assignees),
+                        solution: undefined
+                    }
+                });
+            }
+        } else {
+            window.alert("Inputs are too short.");
         }
-        return formatted;
     }
 
-    function updateBug() {
-        dispatch({
-            type: "bug/update",
-            payload: {
-                briefDescription: briefDescription,
-                detailedDescription: detailedDescription,
-                assignees: assignees,
-                solution: solution
-            }
-        });
+    function deleteBug() {
+        const confirmed = window.confirm(
+          "Are you sure you want to delete this bug?"
+        );
+        if (confirmed) {
+          dispatch({
+            type: "bug/delete",
+            payload: bug.id
+          });
+        }
     }
 
     function navToHome() {
         navigate("/home");
     }
 
+    function openAddUpdateBox() {
+        setAddUpdateBoxOpened(true);
+    }
+
     return (
         <div style={styles.root}>
-            <NavBar 
+            <NavBar
                 actionText="Log out"
                 action={navAction}
             />
@@ -105,7 +136,7 @@ export default function ManageBugPage() {
                     <p style={styles.id}>Bug: #{bug.id}</p>
                     <LargeDataRow 
                         prompt="Status"
-                        data={bug.solution ? "Fixed" : "Unfixed"}
+                        data={bug.fixed ? "Fixed" : "Unfixed"}
                     />
                     <LargeDataRow 
                         prompt="Created on"
@@ -115,15 +146,13 @@ export default function ManageBugPage() {
                     <input 
                         type="text"
                         style={styles.singleLineInputField}
-                        placeholder="brief description"
-                        value={formattedData(briefDescription)}
+                        value={briefDescription}
                         onChange={(e) => setBriefDescription(e.target.value)}
                         maxLength={23}
                     />
                     <p style={styles.prompt}>Detailed description:</p>
                     <textarea
-                        value={formattedData(detailedDescription)}
-                        placeholder="Detailed description"
+                        value={detailedDescription}
                         onChange={(e) => setDetailedDescription(e.target.value)}
                         rows={3}
                         style={styles.multilineInputField}
@@ -132,8 +161,7 @@ export default function ManageBugPage() {
                     <input 
                         type="text"
                         style={styles.singleLineInputField}
-                        placeholder="brief description"
-                        value={formattedData(assignees)}
+                        value={assignees}
                         onChange={(e) => setAssignees(e.target.value)}
                     />
                     <div style={styles.divider} />
@@ -142,9 +170,24 @@ export default function ManageBugPage() {
                             <p style={styles.prompt}>Updates:</p>
                         </div>
                         <div style={styles.updateRightTopBar}>
-                            <IoIosAdd style={styles.addUpdateIcon}/>
+                            {
+                                !addUpdateBoxOpened ?
+                                    <IoIosAdd onClick={openAddUpdateBox} style={styles.addUpdateIcon}/>
+                                : null
+                            }
                         </div>
                     </div>
+                    {
+                        addUpdateBoxOpened ?
+                            <AddUpdateBox 
+                                setAddUpdateBoxOpened={setAddUpdateBoxOpened}
+                                fixLocation={fixLocation}
+                                setFixLocation={setFixLocation}
+                                fixDetails={fixDetails}
+                                setFixDetails={setFixDetails}
+                            />
+                        : null
+                    }
                     {
                         loading ?
                             <Loader loading={loading}/>
@@ -158,17 +201,18 @@ export default function ManageBugPage() {
                     <div style={styles.divider} />
                     <p style={styles.prompt}>Solution:</p>
                     <textarea
-                        value={formattedData(solution)}
+                        value={solution}
                         onChange={(e) => setSolution(e.target.value)}
                         rows={3}
                         style={styles.multilineInputField}
                     />
                     <div style={styles.buttonsFrame}>
                         <button onClick={updateBug} style={styles.updateButton}>Update bug</button>
+                        <button onClick={deleteBug} style={styles.deleteButton}>Delete bug</button>
                         <button onClick={navToHome} style={styles.cancelButton}>Cancel</button>
                     </div>
                 </div>
-            </div>
+            </div>    
         </div>
     )
 }
@@ -186,7 +230,7 @@ const styles = {
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        marginTop: "50px",
+        marginTop: "50px"
     },
 
     innerMain: {
@@ -267,9 +311,8 @@ const styles = {
     },
 
     buttonsFrame: {
-        width: "320px",
+        width: "80%",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
         marginTop: "45px",
         marginBottom: "100px"
@@ -279,7 +322,21 @@ const styles = {
         width: "7.5rem",
         height: "2.5rem",
         marginRight: "20px",
+        marginLeft: "10px",
         backgroundColor: Colors.two,
+        borderWidth: "0",
+        borderRadius: '5px',
+        color: Colors.five,
+        fontFamily: "Arial",
+        cursor: 'pointer',
+        fontSize: '1rem'
+    },
+
+    deleteButton: {
+        width: "7.5rem",
+        height: "2.5rem",
+        marginRight: "20px",
+        backgroundColor: Colors.nine,
         borderWidth: "0",
         borderRadius: '5px',
         color: Colors.five,
@@ -293,7 +350,7 @@ const styles = {
         height: "2.5rem",
         marginRight: "20px",
         backgroundColor: Colors.five,
-        border: `2px solid ${Colors.two}`,
+        border: `2px solid ${Colors.four}`,
         borderRadius: '5px',
         color: Colors.six,
         fontFamily: "Arial",

@@ -11,8 +11,6 @@ import {
 import {
     listenFetchBulk as listenFetchBulkBugs,
     listenResetFetchBulk as listenResetFetchBulkBugs,
-    listenFetch as listenFetchBug,
-    listenResetFetch as listenResetFetchBug,
     listenCreate as listenCreateBug,
     listenResetCreate as listenResetCreateBug,
     listenUpdate as listenUpdateBug,
@@ -24,8 +22,6 @@ import {
 import {
     listenFetchBulk as listenFetchBulkUpdates,
     listenResetFetchBulk as listenResetFetchBulkUpdates,
-    listenFetch as listenFetchUpdate,
-    listenResetFetch as listenResetFetchUpdate,
     listenCreate as listenCreateUpdate,
     listenResetCreate as listenResetCreateUpdate,
     listenUpdate as listenUpdateUpdate,
@@ -45,8 +41,6 @@ export default function* rootSaga() {
 
         listenFetchBulkBugs(),
         listenResetFetchBulkBugs(),
-        listenFetchBug(),
-        listenResetFetchBug(),
         listenCreateBug(),
         listenResetCreateBug(),
         listenUpdateBug(),
@@ -56,8 +50,6 @@ export default function* rootSaga() {
 
         listenFetchBulkUpdates(),
         listenResetFetchBulkUpdates(),
-        listenFetchUpdate(),
-        listenResetFetchUpdate(),
         listenCreateUpdate(),
         listenResetCreateUpdate(),
         listenUpdateUpdate(),

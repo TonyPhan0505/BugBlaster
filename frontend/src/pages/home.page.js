@@ -42,11 +42,11 @@ export default function HomePage() {
   function getFilteredBugs() {
     if (filterOption === "Unfixed") {
       return bugs.filter((bug) => {
-        return !bug.solution;
+        return !bug.fixed;
       });
     } else {
       return bugs.filter((bug) => {
-        return bug.solution;
+        return bug.fixed;
       });
     }
   }

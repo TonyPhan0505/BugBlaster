@@ -17,19 +17,6 @@ export const getBulk = async (bugId) => {
     return response;
 };
 
-export const get = async (updateId) => {
-    const accessToken = localStorage.getItem('accessToken');
-    const response = await axios.post(`${backendURL}/update/get`, {
-        accessToken: accessToken,
-        updateId: updateId
-    }).then(
-        res => { return res; }
-    ).catch(
-        err => { console.error(err); }
-    );
-    return response;
-};
-
 export const create = async (update) => {
     const accessToken = localStorage.getItem('accessToken');
     const response = await axios.post(`${backendURL}/update/create`, {

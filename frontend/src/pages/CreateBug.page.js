@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import IdGenerator from '../utils/IdGenerator.utils';
 import Colors from "../utils/colors.utils";
 import { useSelector, useDispatch } from "react-redux";
+import AddPeriod from '../utils/AddPeriod.utils';
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -33,17 +34,21 @@ export default function CreateBugPage() {
   }, [hasCreated]);
 
   function createBugHandler() {
-    dispatch({
-      type: "bug/create",
-      payload: {
-        id: id,
-        datetime: new Date().getTime(),
-        briefDescription: briefDescription,
-        detailedDescription: detailedDescription,
-        assignees: assignees,
-        teamId: currentTeam.id
-      }
-    });
+    if (briefDescription.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
+      dispatch({
+        type: "bug/create",
+        payload: {
+          id: id,
+          datetime: new Date().getTime(),
+          briefDescription: AddPeriod(briefDescription),
+          detailedDescription: AddPeriod(detailedDescription),
+          assignees: AddPeriod(assignees),
+          teamId: currentTeam.id
+        }
+      });
+    } else {
+      window.alert("Inputs are too short.");
+    }
   }
 
   function cancelHandler() {
