@@ -6,6 +6,7 @@ import NavBar from "../components/shared/NavBar.component";
 import BugCard from "../components/home/BugCard.component";
 import Loader from '../components/shared/Loader.component';
 import { useNavigate } from "react-router-dom";
+import { MdOutlineScreenSearchDesktop } from "react-icons/md";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -68,6 +69,24 @@ export default function HomePage() {
     navigate("/");
   }
 
+  function getBugs() {
+    const filteredBugs = getFilteredBugs();
+    if (!searchText) {
+      return filteredBugs;
+    }
+    return filteredBugs.filter((bug) => {
+      return (
+        bug.id.toLowerCase().includes(searchText.toLowerCase())
+          ||
+        bug.briefDescription.toLowerCase().includes(searchText.toLowerCase())
+          ||
+        bug.detailedDescription.toLowerCase().includes(searchText.toLowerCase())
+          ||
+        bug.assignees.toLowerCase().includes(searchText.toLowerCase())
+      )
+    });
+  }
+
   return (
     <div style={styles.root}>
       <NavBar 
@@ -77,6 +96,7 @@ export default function HomePage() {
       <div style={styles.main}>
         <div style={styles.searchSortFrame}>
           <div style={styles.searchFrame}>
+            <MdOutlineScreenSearchDesktop style={styles.searchIcon}/>
             <input 
               type="text"
               style={styles.searchField}
@@ -110,7 +130,7 @@ export default function HomePage() {
             : 
               <>
                 {
-                  getFilteredBugs().map((bug) => {
+                  getBugs().map((bug) => {
                     return (
                       <BugCard key={bug.id} bug={bug}/>
                     )
@@ -149,7 +169,16 @@ const styles = {
   },
 
   searchFrame: {
-    width: "55%"
+    width: "55%",
+    display: "flex",
+    alignItems: "center"
+  },
+
+  searchIcon: {
+    fontSize: "1.9rem",
+    color: Colors.two,
+    marginLeft: "20px",
+    marginRight: "5px"
   },
 
   sortFrame: {
@@ -166,8 +195,7 @@ const styles = {
     borderBottomWidth: "2px",
     borderColor: Colors.three,
     width: "12.5rem",
-    fontSize: '1.2rem',
-    marginLeft: "20px"
+    fontSize: '1.2rem'
   },
 
   chosenOptionButton: {
