@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Colors from "../../utils/colors.utils";
 import { LuPencilLine } from "react-icons/lu";
 import { useSelector, useDispatch } from "react-redux";
+import AddPeriod from "../../utils/AddPeriod.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -50,7 +51,7 @@ export default function UpdateCard({ update }) {
         type: "update/update",
         payload: {
           updateId: update.id,
-          details: details,
+          details: AddPeriod(details),
           location: location
         }
       });
@@ -89,8 +90,8 @@ export default function UpdateCard({ update }) {
       {
         !isEditted ?
           <>
-            <p style={styles.text}>Location: {location}</p>
-            <p style={styles.text}>Details: {details}</p>
+            <p style={styles.text}>Location of fix: {location}</p>
+            <p style={styles.text}>Details: {AddPeriod(details)}</p>
           </>
         : 
           <>

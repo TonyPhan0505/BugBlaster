@@ -26,7 +26,7 @@ export default function AddUpdateBox({
           id: IdGenerator(),
           datetime: new Date().getTime(),
           details: AddPeriod(fixDetails),
-          location: AddPeriod(fixLocation),
+          location: fixLocation,
           bugId: bugId,
           teamId: currentTeam.id
         }
