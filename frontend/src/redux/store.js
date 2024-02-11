@@ -50,6 +50,8 @@ const store = configureStore({
 sagaMiddleware.run(rootSaga);
 
 const persistor = persistStore(store);
-
-export { store, persistor };
 ///////////////////////////////////////////////////
+
+////////////////// Exports //////////////////
+export { store, persistor };
+////////////////////////////////////////////
