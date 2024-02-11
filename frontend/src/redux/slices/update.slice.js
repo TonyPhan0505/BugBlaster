@@ -55,7 +55,7 @@ export const updateSlice = createSlice({
             const { status, updateId } = action.payload;
             if (status === 1) {
                 let updatedUpdates = [...state.updates];
-                updatedUpdates = updatedUpdates.filter((id) => { return id !== updateId });
+                updatedUpdates = updatedUpdates.filter((e) => { return e.id !== updateId });
                 state.updates = updatedUpdates;
             }
             state.hasDeleted = status;

@@ -55,7 +55,7 @@ export const bugSlice = createSlice({
             const { status, bugId } = action.payload;
             if (status === 1) {
                 let updatedBugs = [...state.bugs];
-                updatedBugs = updatedBugs.filter((id) => { return id !== bugId });
+                updatedBugs = updatedBugs.filter((e) => { return e.id !== bugId });
                 state.bugs = updatedBugs;
             }
             state.hasDeleted = status;
