@@ -1,5 +1,5 @@
 # BugBlaster
-This is a web app for software development teams to track the progress of fixinng bugs in their software.
+This is a web app for software development teams to track the progress of fixing bugs in their software.
 
 # Demo:
 https://youtu.be/HseXtvzF850?si=PhiS-a1SuVGNQ85E
