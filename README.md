@@ -9,7 +9,7 @@ https://youtu.be/HseXtvzF850?si=PhiS-a1SuVGNQ85E
 ![login](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/7031b740-77c1-4f77-93a6-cced0e9416c7)
 ![sign_up](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/99d0342e-ad4a-422c-a4d7-80ee2141dbea)
 
-### Create a nnew bug:
+### Create a new bug:
 ![create_bug](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/f14ade55-30f1-4b86-8cec-839c07c9fd5f)
 
 ### See filtered bugs and search for bugs by ID, description, assignees:
