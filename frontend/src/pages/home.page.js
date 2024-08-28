@@ -1,12 +1,14 @@
 ////////////////// Import dependencies //////////////////
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Colors from "../utils/colors.utils";
+import { useNavigate } from "react-router-dom";
+import { MdOutlineScreenSearchDesktop } from "react-icons/md";
+
 import NavBar from "../components/shared/NavBar.component";
 import BugCard from "../components/home/BugCard.component";
 import Loader from '../components/shared/Loader.component';
-import { useNavigate } from "react-router-dom";
-import { MdOutlineScreenSearchDesktop } from "react-icons/md";
+
+import Colors from "../utils/colors.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////

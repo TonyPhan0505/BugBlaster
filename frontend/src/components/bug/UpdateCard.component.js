@@ -1,8 +1,9 @@
 ////////////////// Import dependencies //////////////////
 import React, { useState, useEffect } from 'react';
-import Colors from "../../utils/colors.utils";
 import { LuPencilLine } from "react-icons/lu";
 import { useSelector, useDispatch } from "react-redux";
+
+import Colors from "../../utils/colors.utils";
 import AddPeriod from "../../utils/AddPeriod.utils";
 ////////////////////////////////////////////////////////
 

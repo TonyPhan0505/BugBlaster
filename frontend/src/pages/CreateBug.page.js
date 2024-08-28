@@ -1,10 +1,12 @@
 ////////////////// Import dependencies //////////////////
 import React, { useState, useEffect } from 'react';
-import NavBar from '../components/shared/NavBar.component';
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import NavBar from '../components/shared/NavBar.component';
+
 import IdGenerator from '../utils/IdGenerator.utils';
 import Colors from "../utils/colors.utils";
-import { useSelector, useDispatch } from "react-redux";
 import AddPeriod from '../utils/AddPeriod.utils';
 ////////////////////////////////////////////////////////
 

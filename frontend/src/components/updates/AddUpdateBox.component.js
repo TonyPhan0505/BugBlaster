@@ -1,7 +1,8 @@
 ////////////////// Import dependencies //////////////////
 import React from 'react';
-import Colors from "../../utils/colors.utils";
 import { useSelector, useDispatch } from "react-redux";
+
+import Colors from "../../utils/colors.utils";
 import IdGenerator from "../../utils/IdGenerator.utils";
 import AddPeriod from '../../utils/AddPeriod.utils';
 ////////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 ////////////////// Import dependencies //////////////////
 import React from 'react';
+
 import Colors from "../../utils/colors.utils";
 import logo from "../../assets/logoBugblaster.png";
 ////////////////////////////////////////////////////////

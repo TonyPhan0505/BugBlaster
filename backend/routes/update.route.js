@@ -1,8 +1,9 @@
 /////////////////////// Import dependencies /////////////////////
 const express = require('express');
+const router = express.Router();
+
 const updateController = require('../controllers/update.controller');
 const authenticationController = require('../controllers/authentication.controller');
-const router = express.Router();
 /////////////////////////////////////////////////////////////////
 
 /////////////////////////// Routes ///////////////////////////

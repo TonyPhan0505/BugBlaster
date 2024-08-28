@@ -1,6 +1,8 @@
 /////////////////////////// Import Dependencies ///////////////////////////
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import LoginPage from "./pages/login.page";
 import SignUpPage from "./pages/SignUp.page";
@@ -8,8 +10,6 @@ import HomePage from "./pages/home.page";
 import CreateBugPage from "./pages/CreateBug.page";
 import ManageBugPage from "./pages/ManageBug.page";
 
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 //////////////////////////////////////////////////////////////////////////
 

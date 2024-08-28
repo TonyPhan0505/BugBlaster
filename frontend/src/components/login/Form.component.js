@@ -1,8 +1,9 @@
 ////////////////// Import dependencies //////////////////
 import React, { useEffect, useState } from 'react';
-import Colors from "../../utils/colors.utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import Colors from "../../utils/colors.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////

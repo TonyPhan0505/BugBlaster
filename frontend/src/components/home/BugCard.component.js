@@ -1,10 +1,12 @@
 ////////////////// Import dependencies //////////////////
 import React, { useEffect } from 'react';
-import Colors from "../../utils/colors.utils";
 import { MdDelete } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import DataRow from '../shared/DataRow.component';
+
+import Colors from "../../utils/colors.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////

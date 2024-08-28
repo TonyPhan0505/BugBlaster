@@ -1,16 +1,18 @@
 ////////////////// Import dependencies //////////////////
 import React, { useState, useEffect } from 'react';
-import NavBar from '../components/shared/NavBar.component';
+import { IoIosAdd } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
-import Colors from "../utils/colors.utils";
+
 import LargeDataRow from '../components/shared/LargeDataRow.component';
 import UpdateCard from '../components/bug/UpdateCard.component';
 import Loader from '../components/shared/Loader.component';
-import { IoIosAdd } from "react-icons/io";
-import AddPeriod from '../utils/AddPeriod.utils';
+import NavBar from '../components/shared/NavBar.component';
 import AddUpdateBox from '../components/updates/AddUpdateBox.component';
+
+import Colors from "../utils/colors.utils";
+import AddPeriod from '../utils/AddPeriod.utils';
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////

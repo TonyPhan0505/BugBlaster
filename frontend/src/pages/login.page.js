@@ -1,9 +1,11 @@
 ////////////////// Import dependencies //////////////////
 import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import NavBar from "../components/shared/NavBar.component";
 import Form from "../components/login/Form.component";
+
 import Colors from "../utils/colors.utils";
-import { useNavigate } from "react-router-dom";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
