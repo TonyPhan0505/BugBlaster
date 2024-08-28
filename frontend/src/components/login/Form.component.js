@@ -18,6 +18,16 @@ export default function Form() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
         if (isLoggedIn === 1) {
             dispatch({
                 type: "team/reset_login"
@@ -42,7 +52,7 @@ export default function Form() {
     }
 
     return (
-        <div style={styles.root}>
+        <div style={isMobile ? styles.rootMobile : styles.root}>
             <label style={styles.label}>Email:</label>
             <input 
                 type="text" 
@@ -70,30 +80,39 @@ export default function Form() {
 ////////////////// Styles //////////////////
 const styles = {
   root: {
-      width: "30%", 
+      width: "25%", 
       margin: 'auto', 
       paddingTop: '20px', 
       fontSize: "1.125rem",
       marginTop: "100px"
   },
+  rootMobile: {
+    width: "84%", 
+    margin: 'auto', 
+    paddingTop: '20px', 
+    fontSize: "1.125rem",
+    marginTop: "100px"
+  },
   label: {
       display: 'block',
       marginBottom: '5px',
       fontFamily: "Arial",
-      marginTop: "20px",
+      marginTop: "20px"
   },
   input: {
     width: '100%',
+    height: "1.7rem",
     padding: '8px',
     marginBottom: '10px',
+    borderRadius: "0.3rem",
     borderWidth: "0",
     marginTop: "20px",
     fontSize: "1rem",
     backgroundColor: Colors.seven
   },
   button: {
-    width: "4.5rem",
-    height: "2rem",
+    width: "4.8rem",
+    height: "2.1rem",
     marginRight: "20px",
     backgroundColor: Colors.two,
     borderWidth: "0",
