@@ -43,7 +43,7 @@ const styles = {
   },
 
   logo: {
-    width: "11.375rem",
+    width: "10.375rem",
     height: "auto",
     marginLeft: "20px"
   },
@@ -58,7 +58,7 @@ const styles = {
 
   button: {
     width: "6.6rem",
-    height: "2.5rem",
+    height: "2.3rem",
     marginRight: "20px",
     backgroundColor: Colors.four,
     borderWidth: "0",

@@ -17,24 +17,27 @@ import AddPeriod from '../utils/AddPeriod.utils';
 
 ////////////////// Component //////////////////
 export default function ManageBugPage() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const location = useLocation();
     const bug = location.state.data;
     const datetime = new Date(bug.datetime);
+
+    const updates = useSelector(state => state.update.updates);
+    const hasFetchedBulk = useSelector(state => state.update.hasFetchedBulk);
+    const hasDeletedUpdate = useSelector(state => state.update.hasDeleted);
+    const hasUpdated = useSelector(state => state.bug.hasUpdated);
+    const hasDeletedBug = useSelector(state => state.bug.hasDeleted);
+
     const [ briefDescription, setBriefDescription ] = useState(bug.briefDescription);
     const [ detailedDescription, setDetailedDescription ] = useState(bug.detailedDescription);
     const [ assignees, setAssignees ] = useState(bug.assignees);
     const [ solution, setSolution ] = useState(bug.solution ? bug.solution : "");
-    const updates = useSelector(state => state.update.updates);
     const [ loading, setLoading ] = useState(true);
-    const hasFetchedBulk = useSelector(state => state.update.hasFetchedBulk);
-    const hasDeletedUpdate = useSelector(state => state.update.hasDeleted);
-    const hasUpdated = useSelector(state => state.bug.hasUpdated);
     const [ addUpdateBoxOpened, setAddUpdateBoxOpened ] = useState(false);
     const [ fixLocation, setFixLocation ] = useState("");
     const [ fixDetails, setFixDetails ] = useState("");
-    const hasDeletedBug = useSelector(state => state.bug.hasDeleted);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!localStorage.getItem("accessToken")) {

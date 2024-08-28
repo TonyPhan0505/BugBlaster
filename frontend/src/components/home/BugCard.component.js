@@ -12,10 +12,12 @@ import Colors from "../../utils/colors.utils";
 ////////////////// Component //////////////////
 export default function BugCard({ bug }) {
   const datetime = new Date(bug.datetime);
-  const dispatch = useDispatch();
+  
   const hasDeleted = useSelector(state => state.bug.hasDeleted);
   const currentTeam = useSelector(state => state.team.currentTeam);
+  
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (hasDeleted === 1) {

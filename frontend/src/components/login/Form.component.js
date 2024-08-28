@@ -8,11 +8,14 @@ import Colors from "../../utils/colors.utils";
 
 ////////////////// Component //////////////////
 export default function Form() {
-    const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.team.isLoggedIn);
-    const navigate = useNavigate();
+
     const [ emailAddress, setEmailAddress ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (isLoggedIn === 1) {
@@ -67,7 +70,7 @@ export default function Form() {
 ////////////////// Styles //////////////////
 const styles = {
   root: {
-      width: '300px', 
+      width: "30%", 
       margin: 'auto', 
       paddingTop: '20px', 
       fontSize: "1.125rem",

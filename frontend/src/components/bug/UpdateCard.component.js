@@ -10,10 +10,13 @@ import AddPeriod from "../../utils/AddPeriod.utils";
 ////////////////// Component //////////////////
 export default function UpdateCard({ update }) {
   const formattedDatetime = new Date(update.datetime);
+
+  const hasUpdated = useSelector(state => state.update.hasUpdated);
+
   const [ isEditted, setIsEdited ] = useState(false);
   const [ location, setLocation ] = useState(update.location);
   const [ details, setDetails ] = useState(update.details);
-  const hasUpdated = useSelector(state => state.update.hasUpdated);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {

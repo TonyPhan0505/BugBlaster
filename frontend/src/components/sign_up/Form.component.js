@@ -9,11 +9,13 @@ import IdGenerator from "../../utils/IdGenerator.utils";
 
 ////////////////// Component //////////////////
 export default function Form() {
-  const dispatch = useDispatch();
   const isSignedUp = useSelector(state => state.team.isSignedUp);
-  const navigate = useNavigate();
+  
   const [ emailAddress, setEmailAddress ] = useState("");
   const [ password, setPassword ] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSignedUp === 1) {

@@ -16,8 +16,9 @@ export default function AddUpdateBox({
   fixDetails, 
   setFixDetails 
 }) {
-  const dispatch = useDispatch();
   const currentTeam = useSelector(state => state.team.currentTeam);
+
+  const dispatch = useDispatch();
 
   function createFix() {
     if (fixLocation.length > 3 && fixDetails.length > 3) {

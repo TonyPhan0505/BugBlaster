@@ -13,13 +13,15 @@ import Colors from "../utils/colors.utils";
 
 ////////////////// Component //////////////////
 export default function HomePage() {
-  const [ searchText, setSearchText ] = useState("");
-  const [ filterOption, setFilterOption ] = useState("Unfixed");
   const currentTeam = useSelector(state => state.team.currentTeam);
   const bugs = useSelector(state => state.bug.bugs);
   const hasFetchedBulk = useSelector(state => state.bug.hasFetchedBulk);
-  const dispatch = useDispatch();
+
+  const [ searchText, setSearchText ] = useState("");
+  const [ filterOption, setFilterOption ] = useState("Unfixed");
   const [ loading, setLoading ] = useState(true);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -12,14 +12,16 @@ import AddPeriod from '../utils/AddPeriod.utils';
 
 ////////////////// Component //////////////////
 export default function CreateBugPage() {
-  const navigate = useNavigate();
+  const currentTeam = useSelector(state => state.team.currentTeam);
+  const hasCreated = useSelector(state => state.bug.hasCreated);
+
   const [ id, _ ] = useState(IdGenerator());
   const [ briefDescription, setBriefDescription ] = useState("");
   const [ detailedDescription, setDetailedDescription ] = useState("");
   const [ assignees, setAssignees ] = useState("");
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currentTeam = useSelector(state => state.team.currentTeam);
-  const hasCreated = useSelector(state => state.bug.hasCreated);
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
