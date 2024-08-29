@@ -45,6 +45,11 @@ export default function Form() {
         type: "project/reset_sign_up"
       });
       showInstructionAlert("This project name was already taken.");
+    } else if (isSignedUp === 4) {
+      dispatch({
+        type: "project/reset_sign_up"
+      });
+      showInstructionAlert("This email address is not yet registered. Please contact the development team.");
     }
   }, [isSignedUp]);
 

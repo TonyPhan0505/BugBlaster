@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const Project = require('../models/project.model');
+const RegisteredEmail = require('../models/RegisteredEmail.model');
 /////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////// Callbacks /////////////////////////////////
@@ -38,24 +39,33 @@ exports.signUp = async (req, res) => {
         if (existingOne) {
             return res.status(200).json({ 
                 success: true, 
-                valid: false, 
+                valid: 3, 
                 message: "Project name is already taken." 
             });
         } else {
-            const newProject = new Project({
-                uniqueName: projectName,
-                emailAddress: emailAddress,
-                hashedPassword: bcrypt.hashSync(password, 10)
-            });
-            await newProject.save();
-            const secretKey = process.env.LOGIN_SECRET_KEY;
-            const accessToken = jwt.sign({ emailAddress: newProject.emailAddress, uniqueName: newProject.uniqueName }, secretKey);
-            return res.status(200).json({ 
-                success: true, 
-                valid: true,
-                project: newProject, 
-                accessToken: accessToken 
-            });
+            const registeredEmail = await RegisteredEmail.findOne({ emailAddress: emailAddress });
+            if (registeredEmail) {
+                const newProject = new Project({
+                    uniqueName: projectName,
+                    emailAddress: emailAddress,
+                    hashedPassword: bcrypt.hashSync(password, 10)
+                });
+                await newProject.save();
+                const secretKey = process.env.LOGIN_SECRET_KEY;
+                const accessToken = jwt.sign({ emailAddress: newProject.emailAddress, uniqueName: newProject.uniqueName }, secretKey);
+                return res.status(200).json({ 
+                    success: true, 
+                    valid: 1,
+                    project: newProject, 
+                    accessToken: accessToken 
+                });
+            } else {
+                return res.status(200).json({ 
+                    success: true, 
+                    valid: 4, 
+                    message: "Email address was not yet registered." 
+                });
+            }
         }
     } catch (err) {
         return res.status(500).json({ success: false, message: `Failed to sign up project. ${err}` });

@@ -60,7 +60,8 @@ function* signUpSaga(action) {
         password
     );
     if (res && res.data.success) {
-        if (res.data.valid) {
+        const valid = res.data.valid;
+        if (valid === 1) {
             const project = res.data.project;
             yield put(signUpReducer({
                 status: 1,
@@ -69,10 +70,14 @@ function* signUpSaga(action) {
             console.log("SUCCESS: Successfully signed up.");
         } else {
             yield put(signUpReducer({
-                status: 3,
+                status: valid,
                 project: undefined
             }));
-            console.log("Project name was already taken.");
+            if (valid === 3) {
+                console.log("Project name was already taken.");
+            } else if (valid === 4) {
+                console.log("Email address was not yet registered.");
+            }
         }
     } else {
         yield put(signUpReducer({

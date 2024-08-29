@@ -8,7 +8,7 @@ export const projectSlice = createSlice({
     initialState: {
         currentProject: {},
         isLoggedIn: 2, // 0 = failed login, 1 = successfully logged in, 2 = waiting for credentials to be entered
-        isSignedUp: 2 // 0 = failed sign up, 1 = successfully signed up, 2 = waiting for credentials to be entered, 3 = invalid project name
+        isSignedUp: 2 // 0 = failed sign up, 1 = successfully signed up, 2 = waiting for credentials to be entered, 3 = invalid project name, 4 = unregistered email address
     },
     reducers: {
         loginReducer: (state, action) => {
