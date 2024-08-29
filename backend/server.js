@@ -30,6 +30,7 @@ mongoose.connect(mongoURI)
 const ProjectRouter = require('./routes/project.route');
 const BugRouter = require('./routes/bug.route');
 const UpdateRouter = require('./routes/update.route');
+const RegisteredEmailRouter = require('./routes/RegisteredEmail.route');
 ///////////////////////////////////////////////////////
 
 //////////////////// Middleware ///////////////////////
@@ -40,4 +41,5 @@ app.listen(port, () => console.log('RESTful API server started on: ' + port + '.
 app.use('/project', ProjectRouter);
 app.use('/bug', BugRouter);
 app.use('/update', UpdateRouter);
+app.use('/registeredEmail', RegisteredEmailRouter);
 //////////////////////////////////////////////////////

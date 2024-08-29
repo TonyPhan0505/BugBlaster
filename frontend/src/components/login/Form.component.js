@@ -10,7 +10,7 @@ import Colors from "../../utils/colors.utils";
 export default function Form() {
     const isLoggedIn = useSelector(state => state.project.isLoggedIn);
 
-    const [ emailAddress, setEmailAddress ] = useState("");
+    const [ projectName, setProjectName ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
 
@@ -45,7 +45,7 @@ export default function Form() {
         dispatch({
             type: "project/login",
             payload: {
-                emailAddress: emailAddress, 
+                projectName: projectName, 
                 password: password
             }
         });
@@ -57,9 +57,9 @@ export default function Form() {
             <input 
                 type="text" 
                 style={styles.input} 
-                placeholder="Enter your email:" 
-                value={emailAddress}
-                onChange={(e) => setEmailAddress(e.target.value)}
+                placeholder="Enter your project name:" 
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
             />
 
             <label style={styles.label}>Password:</label>
