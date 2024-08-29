@@ -7,11 +7,18 @@ exports.getBulk = (req, res) => {
     const projectName = req.body.projectName;
     Bug.find({ projectName: projectName }).sort({ _id: -1 }).exec().then(
         (bugs) => {
-            return res.status(200).json({ success: true, bugs: bugs, message: "Successfully fetched bugs." });
+            return res.status(200).json({ 
+                success: true, 
+                bugs: bugs, 
+                message: "Successfully fetched bugs." 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to fetch bugs from database. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to fetch bugs from database. ${err}.` 
+            });
         }
     );
 };
@@ -28,11 +35,18 @@ exports.create = (req, res) => {
     });
     newBug.save().then(
         (bug) => {
-            return res.status(200).json({ success: true, bug: bug, message: "Successfully created a new bug." });
+            return res.status(200).json({ 
+                success: true, 
+                bug: bug, 
+                message: "Successfully created a new bug." 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to create a new bug. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to create a new bug. ${err}.` 
+            });
         }
     );
 };
@@ -57,11 +71,18 @@ exports.update = (req, res) => {
                 updatedBug.fixed = false;
                 await updatedBug.save();
             }
-            return res.status(200).json({ success: true, bug: updatedBug, message: `Successfully update bug ${updatedBug.id}.` });
+            return res.status(200).json({ 
+                success: true, 
+                bug: updatedBug, 
+                message: `Successfully update bug ${updatedBug.id}.` 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to update bug ${bug.id}. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to update bug ${bug.id}. ${err}.` 
+            });
         }
     );
 };
@@ -70,11 +91,17 @@ exports.delete = (req, res) => {
     const bugId = req.body.bugId;
     Bug.deleteOne({ id: bugId }).then(
         () => {
-            return res.status(200).json({ success: true, message: `Successfully deleted bug ${bugId}.` });
+            return res.status(200).json({ 
+                success: true, 
+                message: `Successfully deleted bug ${bugId}.` 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to delete bug ${bugId}. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to delete bug ${bugId}. ${err}.` 
+            });
         }
     );
 };

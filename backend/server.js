@@ -31,6 +31,7 @@ const ProjectRouter = require('./routes/project.route');
 const BugRouter = require('./routes/bug.route');
 const UpdateRouter = require('./routes/update.route');
 const RegisteredEmailRouter = require('./routes/RegisteredEmail.route');
+const AdminRouter = require('./routes/admin.route');
 ///////////////////////////////////////////////////////
 
 //////////////////// Middleware ///////////////////////
@@ -42,4 +43,5 @@ app.use('/project', ProjectRouter);
 app.use('/bug', BugRouter);
 app.use('/update', UpdateRouter);
 app.use('/registeredEmail', RegisteredEmailRouter);
+app.use('/admin', AdminRouter);
 //////////////////////////////////////////////////////

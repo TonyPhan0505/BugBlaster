@@ -31,7 +31,7 @@ https://youtu.be/HseXtvzF850?si=PhiS-a1SuVGNQ85E
 # Running the web app
 1. cd into the "backend" directory.
 2. Run the command: npm install
-3. Create a .env file in the "backend" directory in which the values for the following fields are specified: MONGO_USER, MONGO_PASSWORD, ADMIN_LOGIN_SECRET_KEY, LOGIN_SECRET_KEY.
+3. Create a .env file in the "backend" directory in which the values for the following fields are specified: MONGO_USER, MONGO_PASSWORD, ADMIN_EMAIL_ADDRESS, ADMIN_LOGIN_SECRET_KEY, LOGIN_SECRET_KEY.
 4. Run the command: npm start
 5. cd into the "frontend" folder.
 6. Run the command: npm install

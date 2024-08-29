@@ -10,11 +10,18 @@ exports.getBulk = (req, res) => {
         bugId: bugId
     }).sort({ _id: -1 }).exec().then(
         (updates) => {
-            return res.status(200).json({ success: true, updates: updates, message: `Successfully fetched updates for bug ${bugId} from database.` });
+            return res.status(200).json({ 
+                success: true, 
+                updates: updates, 
+                message: `Successfully fetched updates for bug ${bugId} from database.` 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to fetch updates for bug ${bugId} from database. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to fetch updates for bug ${bugId} from database. ${err}.` 
+            });
         }
     );
 };
@@ -34,11 +41,18 @@ exports.create = (req, res) => {
             const bug = await Bug.findOne({ id: update.bugId });
             bug.updates.unshift(update.id);
             await bug.save();
-            return res.status(200).json({ success: true, update: update, message: `Successfully created update ${update.id}.` });
+            return res.status(200).json({ 
+                success: true, 
+                update: update, 
+                message: `Successfully created update ${update.id}.` 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to create update ${update.id}. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to create update ${update.id}. ${err}.` 
+            });
         }
     );
 };
@@ -53,11 +67,18 @@ exports.update = (req, res) => {
     }).then(
         async () => {
             const updatedUpdate = await Update.findOne({ id: updateId });
-            return res.status(200).json({ success: true, update: updatedUpdate, message: `Successfully updated update ${updatedUpdate.id}.` });
+            return res.status(200).json({ 
+                success: true, 
+                update: updatedUpdate, 
+                message: `Successfully updated update ${updatedUpdate.id}.` 
+            });
         }
     ).catch(
         err => {
-            return res.status(500).json({ success: false, message: `Failed to update update ${updateId}. ${err}.` });
+            return res.status(500).json({ 
+                success: false, 
+                message: `Failed to update update ${updateId}. ${err}.` 
+            });
         }
     );
 };
@@ -70,9 +91,15 @@ exports.delete = async (req, res) => {
         bug.updates = bug.updates.filter((id) => { return id !== updateId });
         await bug.save();
         await Update.deleteOne({ id: updateId });
-        return res.status(200).json({ success: true, message: `Successfully deleted update ${updateId}.` });
+        return res.status(200).json({ 
+            success: true, 
+            message: `Successfully deleted update ${updateId}.` 
+        });
     } catch (err) {
-        return res.status(500).json({ success: false, message: `Failed to delete update ${updateId}. ${err}.` });
+        return res.status(500).json({ 
+            success: false, 
+            message: `Failed to delete update ${updateId}. ${err}.` 
+        });
     }
 };
 ////////////////////////////////////////////////////////////////////
