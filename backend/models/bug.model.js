@@ -45,7 +45,7 @@ const BugSchema = new Schema({
         required: false,
         trim: true
     },
-    teamId: {
+    projectName: {
         type: String,
         required: true,
         trim: true

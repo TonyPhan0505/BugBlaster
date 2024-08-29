@@ -27,7 +27,7 @@ exports.create = (req, res) => {
         details: update.details,
         location: update.location,
         bugId: update.bugId,
-        teamId: update.teamId
+        projectName: update.projectName
     });
     newUpdate.save().then(
         async (update) => {

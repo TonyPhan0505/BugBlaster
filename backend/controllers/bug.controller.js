@@ -4,8 +4,8 @@ const Bug = require('../models/bug.model');
 
 //////////////////////////// Callbacks //////////////////////////////
 exports.getBulk = (req, res) => {
-    const teamId = req.body.teamId;
-    Bug.find({ teamId: teamId }).sort({ _id: -1 }).exec().then(
+    const projectName = req.body.projectName;
+    Bug.find({ projectName: projectName }).sort({ _id: -1 }).exec().then(
         (bugs) => {
             return res.status(200).json({ success: true, bugs: bugs, message: "Successfully fetched bugs." });
         }
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
         briefDescription: bug.briefDescription,
         detailedDescription: bug.detailedDescription,
         assignees: bug.assignees,
-        teamId: bug.teamId
+        projectName: bug.projectName
     });
     newBug.save().then(
         (bug) => {

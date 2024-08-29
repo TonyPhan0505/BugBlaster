@@ -5,11 +5,11 @@ import { backendURL } from './web.config';
 ///////////////////////////////////////////////////////////////
 
 ////////////////////// APIs //////////////////////
-export const getBulk = async (teamId) => {
+export const getBulk = async (projectName) => {
     const accessToken = localStorage.getItem('accessToken');
     const response = await axios.post(`${backendURL}/bug/get_bulk`, {
         accessToken: accessToken,
-        teamId: teamId
+        projectName: projectName
     }).then(
         res => { return res; }
     ).catch(

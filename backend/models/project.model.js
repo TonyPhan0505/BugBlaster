@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 ////////////////////////////////////////////////
 
 ////////////// Database schema /////////////
-const TeamSchema = new Schema({
-    id: {
+const ProjectSchema = new Schema({
+    uniqueName: {
         type: String,
         required: true,
         unique: true,
@@ -26,11 +26,11 @@ const TeamSchema = new Schema({
 ///////////////////////////////////////////
 
 //////////// compare raw password with its hashed version //////////
-TeamSchema.methods.comparePassword = function (password) {
+ProjectSchema.methods.comparePassword = function (password) {
 	return bcrypt.compareSync(password, this.hashedPassword);
 };
 ///////////////////////////////////////////////////////////////////
 
 ////////////////////// Exports ////////////////////
-module.exports = mongoose.model('Team', TeamSchema);
+module.exports = mongoose.model('Project', ProjectSchema);
 ////////////////////////////////////////////////////

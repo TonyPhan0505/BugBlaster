@@ -2,15 +2,15 @@
 const express = require('express');
 const router = express.Router();
 
-const teamController = require('../controllers/team.controller');
+const projectController = require('../controllers/project.controller');
 /////////////////////////////////////////////////////////////////
 
 /////////////////////////// Routes ///////////////////////////
 router.route('/login')
-.post(teamController.login);
+.post(projectController.login);
 
 router.route('/sign_up')
-.post(teamController.signUp);
+.post(projectController.signUp);
 /////////////////////////////////////////////////////////////
 
 ///////// Exports /////////

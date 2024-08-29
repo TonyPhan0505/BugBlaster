@@ -27,7 +27,7 @@ mongoose.connect(mongoURI)
 /////////////////////////////////////////////////////////
 
 ///////////////////// Import routes ////////////////////
-const TeamRouter = require('./routes/team.route');
+const ProjectRouter = require('./routes/project.route');
 const BugRouter = require('./routes/bug.route');
 const UpdateRouter = require('./routes/update.route');
 ///////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ app.use(cors());
 app.use(express.json({limit: '70mb'}));
 app.use(express.urlencoded({limit: '70mb'}));
 app.listen(port, () => console.log('RESTful API server started on: ' + port + '.'));
-app.use('/team', TeamRouter);
+app.use('/project', ProjectRouter);
 app.use('/bug', BugRouter);
 app.use('/update', UpdateRouter);
 //////////////////////////////////////////////////////

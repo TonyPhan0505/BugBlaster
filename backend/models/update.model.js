@@ -30,7 +30,7 @@ const UpdateSchema = new Schema({
         required: true,
         trim: true
     },
-    teamId: {
+    projectName: {
         type: String,
         required: true,
         trim: true
