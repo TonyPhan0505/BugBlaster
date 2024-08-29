@@ -12,7 +12,7 @@ import AddPeriod from '../utils/AddPeriod.utils';
 
 ////////////////// Component //////////////////
 export default function CreateBugPage() {
-  const currentTeam = useSelector(state => state.team.currentTeam);
+  const currentProject = useSelector(state => state.project.currentProject);
   const hasCreated = useSelector(state => state.bug.hasCreated);
 
   const [ id, _ ] = useState(IdGenerator());
@@ -53,7 +53,7 @@ export default function CreateBugPage() {
           briefDescription: AddPeriod(briefDescription),
           detailedDescription: AddPeriod(detailedDescription),
           assignees: AddPeriod(assignees),
-          teamId: currentTeam.id
+          projectName: currentProject.uniqueName
         }
       });
     } else {
@@ -67,7 +67,7 @@ export default function CreateBugPage() {
 
   function navAction() {
     dispatch({
-      type: "team/logout"
+      type: "project/logout"
     });
     navigate("/");
   }

@@ -6,11 +6,11 @@ import { backendURL } from './web.config';
 
 ////////////////////// APIs //////////////////////
 export const login = async (
-    emailAddress, 
+    projectName, 
     password
 ) => {
-    const response = await axios.post(`${backendURL}/team/login`, {
-        emailAddress: emailAddress,
+    const response = await axios.post(`${backendURL}/project/login`, {
+        projectName: projectName,
         password: password
     }).then(
         res => {
@@ -25,12 +25,12 @@ export const login = async (
 };
 
 export const signUp = async (
-    teamId,
+    projectName,
     emailAddress,
     password
 ) => {
-    const response = await axios.post(`${backendURL}/team/sign_up`, {
-        teamId: teamId,
+    const response = await axios.post(`${backendURL}/project/sign_up`, {
+        projectName: projectName,
         emailAddress: emailAddress,
         password: password
     }).then(

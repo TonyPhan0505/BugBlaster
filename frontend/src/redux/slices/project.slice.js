@@ -3,32 +3,32 @@ import { createSlice } from "@reduxjs/toolkit";
 ////////////////////////////////////////////////////////
 
 ////////////////// Slice //////////////////
-export const teamSlice = createSlice({
-    name: "team",
+export const projectSlice = createSlice({
+    name: "project",
     initialState: {
-        currentTeam: {},
+        currentProject: {},
         isLoggedIn: 2, // 0 = failed login, 1 = successfully logged in, 2 = waiting for credentials to be entered
-        isSignedUp: 2 // 0 = failed sign up, 1 = successfully signed up, 2 = waiting for credentials to be entered
+        isSignedUp: 2 // 0 = failed sign up, 1 = successfully signed up, 2 = waiting for credentials to be entered, 3 = invalid project name
     },
     reducers: {
         loginReducer: (state, action) => {
-            const { status, team } = action.payload;
-            if (status === 1) { state.currentTeam = team; }
+            const { status, project } = action.payload;
+            if (status === 1) { state.currentProject = project; }
             state.isLoggedIn = status;
         },
         resetLoginReducer: (state) => {
             state.isLoggedIn = 2;
         },
         signUpReducer: (state, action) => {
-            const { status, team } = action.payload;
-            if (status === 1) { state.currentTeam = team; }
+            const { status, project } = action.payload;
+            if (status === 1) { state.currentProject = project; }
             state.isSignedUp = status;
         },
         resetSignUpReducer: (state) => {
             state.isSignedUp = 2;
         },
         logOutReducer: (state) => {
-            state.currentTeam = {};
+            state.currentProject = {};
         }
     }
 });
@@ -41,9 +41,9 @@ export const {
     signUpReducer,
     resetSignUpReducer,
     logOutReducer
-} = teamSlice.actions;
+} = projectSlice.actions;
 ////////////////////////////////////////////
 
 ////////////////// export //////////////////
-export default teamSlice.reducer;
+export default projectSlice.reducer;
 ////////////////////////////////////////////

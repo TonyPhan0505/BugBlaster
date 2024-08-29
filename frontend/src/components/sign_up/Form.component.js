@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Colors from "../../utils/colors.utils";
-import IdGenerator from "../../utils/IdGenerator.utils";
+import { showInstructionAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
 export default function Form() {
-  const isSignedUp = useSelector(state => state.team.isSignedUp);
+  const isSignedUp = useSelector(state => state.project.isSignedUp);
   
+  const [ projectName, setProjectName ] = useState("");
   const [ emailAddress, setEmailAddress ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
@@ -31,30 +32,52 @@ export default function Form() {
   useEffect(() => {
     if (isSignedUp === 1) {
         dispatch({
-            type: "team/reset_sign_up"
+            type: "project/reset_sign_up"
         });
         navigate("/home");
     } else if (isSignedUp === 0) {
         dispatch({
-          type: "team/reset_sign_up"
+          type: "project/reset_sign_up"
         });
         window.alert("Failed to sign up.")
+    } else if (isSignedUp === 3) {
+      dispatch({
+        type: "project/reset_sign_up"
+      });
+      showInstructionAlert("This project name was already taken.");
     }
   }, [isSignedUp]);
 
   function signUp() {
-    dispatch({
-      type: "team/sign_up",
-      payload: {
-        teamId: IdGenerator(),
-        emailAddress: emailAddress,
-        password: password
-      }
-    });
+    if (isValidProjectName()) {
+      dispatch({
+        type: "project/sign_up",
+        payload: {
+          projectName: projectName,
+          emailAddress: emailAddress,
+          password: password
+        }
+      });
+    } else {
+      showInstructionAlert("Project name must be at least 5-character long without any whitespace.");
+    }
+  }
+
+  function isValidProjectName() {
+    return projectName.length >= 5 && !projectName.includes(" ");
   }
 
   return (
     <div style={isMobile ? styles.rootMobile : styles.root}>
+      <label style={styles.label}>{"Unique project name (no whitespace):"}</label>
+      <input 
+          type="text" 
+          style={styles.input} 
+          placeholder="Enter your unique project name:" 
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
+      />
+
       <label style={styles.label}>Email:</label>
       <input 
           type="text" 

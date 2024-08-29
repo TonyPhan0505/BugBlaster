@@ -25,8 +25,8 @@ import {
 
 /////////////// Middleware ////////////////
 function* fetchBulkSaga(action) {
-    const teamId = action.payload;
-    const res = yield getBulk(teamId);
+    const projectName = action.payload;
+    const res = yield getBulk(projectName);
     if (res && res.data.success) {
         const bugs = res.data.bugs;
         yield put(fetchBulkReducer({

@@ -7,7 +7,7 @@ import {
     listenSignUp,
     listenResetSignUp,
     listenLogOut
-} from "./team.saga";
+} from "./project.saga";
 
 import {
     listenFetchBulk as listenFetchBulkBugs,

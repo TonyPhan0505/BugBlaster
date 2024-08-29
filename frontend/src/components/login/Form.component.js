@@ -8,7 +8,7 @@ import Colors from "../../utils/colors.utils";
 
 ////////////////// Component //////////////////
 export default function Form() {
-    const isLoggedIn = useSelector(state => state.team.isLoggedIn);
+    const isLoggedIn = useSelector(state => state.project.isLoggedIn);
 
     const [ emailAddress, setEmailAddress ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -30,12 +30,12 @@ export default function Form() {
     useEffect(() => {
         if (isLoggedIn === 1) {
             dispatch({
-                type: "team/reset_login"
+                type: "project/reset_login"
             });
             navigate("/home");
         } else if (isLoggedIn === 0) {
             dispatch({
-                type: "team/reset_login"
+                type: "project/reset_login"
             });
             window.alert("Wrong credentials.")
         }
@@ -43,7 +43,7 @@ export default function Form() {
     
     function login() {
         dispatch({
-            type: "team/login",
+            type: "project/login",
             payload: {
                 emailAddress: emailAddress, 
                 password: password

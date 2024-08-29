@@ -16,7 +16,7 @@ export default function AddUpdateBox({
   fixDetails, 
   setFixDetails 
 }) {
-  const currentTeam = useSelector(state => state.team.currentTeam);
+  const currentProject = useSelector(state => state.project.currentProject);
 
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ export default function AddUpdateBox({
           details: AddPeriod(fixDetails),
           location: fixLocation,
           bugId: bugId,
-          teamId: currentTeam.id
+          projectName: currentProject.uniqueName
         }
       });
       setAddUpdateBoxOpened(false);

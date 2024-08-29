@@ -112,7 +112,7 @@ export default function ManageBugPage() {
 
     function navAction() {
         dispatch({
-          type: "team/logout"
+          type: "project/logout"
         });
         navigate("/");
     }

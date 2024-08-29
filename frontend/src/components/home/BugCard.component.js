@@ -14,7 +14,7 @@ export default function BugCard({ bug }) {
   const datetime = new Date(bug.datetime);
   
   const hasDeleted = useSelector(state => state.bug.hasDeleted);
-  const currentTeam = useSelector(state => state.team.currentTeam);
+  const currentProject = useSelector(state => state.project.currentProject);
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function BugCard({ bug }) {
       });
       dispatch({
         type: "bug/fetch_bulk",
-        payload: currentTeam.id
+        payload: currentProject.uniqueName
       });
     } else if (hasDeleted === 0) {
       dispatch({

@@ -2,7 +2,7 @@
 import {
     login,
     signUp
-} from "../../apis/team.api";
+} from "../../apis/project.api";
 
 import {
     takeEvery,
@@ -15,30 +15,30 @@ import {
     signUpReducer,
     resetSignUpReducer,
     logOutReducer
-} from "../slices/team.slice";
+} from "../slices/project.slice";
 ///////////////////////////////////////////////////
 
 /////////////// Middleware ////////////////
 function* loginSaga(action) {
     const { 
-        emailAddress, 
+        projectName, 
         password 
     } = action.payload;
     const res = yield login(
-        emailAddress, 
+        projectName, 
         password
     );
     if (res && res.data.success) {
-        const team = res.data.team;
+        const project = res.data.project;
         yield put(loginReducer({
             status: 1,
-            team: team
+            project: project
         }));
         console.log("SUCCESS: Successfully logged in.");
     } else {
         yield put(loginReducer({
             status: 0,
-            team: undefined
+            project: undefined
         }));
         console.error("ERROR: Failed to log in.");
     }
@@ -50,26 +50,34 @@ function* resetLoginSaga() {
 
 function* signUpSaga(action) {
     const {
-        teamId,
+        projectName,
         emailAddress,
         password
     } = action.payload;
     const res = yield signUp(
-        teamId,
+        projectName,
         emailAddress,
         password
     );
     if (res && res.data.success) {
-        const team = res.data.team;
-        yield put(signUpReducer({
-            status: 1,
-            team: team
-        }));
-        console.log("SUCCESS: Successfully signed up.");
+        if (res.data.valid) {
+            const project = res.data.project;
+            yield put(signUpReducer({
+                status: 1,
+                project: project
+            }));
+            console.log("SUCCESS: Successfully signed up.");
+        } else {
+            yield put(signUpReducer({
+                status: 3,
+                project: undefined
+            }));
+            console.log("Project name was already taken.");
+        }
     } else {
         yield put(signUpReducer({
             status: 0,
-            team: undefined
+            project: undefined
         }));
         console.error("ERROR: Failed to sign up.");
     }
@@ -87,22 +95,22 @@ function* logOutSaga() {
 
 /////////////// Listeners ////////////////
 export function* listenLogin() {
-    yield takeEvery("team/login", loginSaga);
+    yield takeEvery("project/login", loginSaga);
 }
 
 export function* listenResetLogin() {
-    yield takeEvery("team/reset_login", resetLoginSaga);
+    yield takeEvery("project/reset_login", resetLoginSaga);
 }
 
 export function* listenSignUp() {
-    yield takeEvery("team/sign_up", signUpSaga);
+    yield takeEvery("project/sign_up", signUpSaga);
 }
 
 export function* listenResetSignUp() {
-    yield takeEvery("team/reset_sign_up", resetSignUpSaga);
+    yield takeEvery("project/reset_sign_up", resetSignUpSaga);
 }
 
 export function* listenLogOut() {
-    yield takeEvery("team/logout", logOutSaga);
+    yield takeEvery("project/logout", logOutSaga);
 }
 /////////////////////////////////////////

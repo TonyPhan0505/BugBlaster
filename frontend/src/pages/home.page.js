@@ -13,7 +13,7 @@ import Colors from "../utils/colors.utils";
 
 ////////////////// Component //////////////////
 export default function HomePage() {
-  const currentTeam = useSelector(state => state.team.currentTeam);
+  const currentProject = useSelector(state => state.project.currentProject);
   const bugs = useSelector(state => state.bug.bugs);
   const hasFetchedBulk = useSelector(state => state.bug.hasFetchedBulk);
 
@@ -33,7 +33,7 @@ export default function HomePage() {
   useEffect(() => {
     dispatch({
       type: "bug/fetch_bulk",
-      payload: currentTeam.id
+      payload: currentProject.uniqueName
     });
   }, []);
 
@@ -68,7 +68,7 @@ export default function HomePage() {
 
   function navAction() {
     dispatch({
-      type: "team/logout"
+      type: "project/logout"
     });
     navigate("/");
   }

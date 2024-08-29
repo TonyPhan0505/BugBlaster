@@ -13,7 +13,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
-import teamReducer from "./slices/team.slice";
+import projectReducer from "./slices/project.slice";
 import bugReducer from "./slices/bug.slice";
 import updateReducer from "./slices/update.slice";
 
@@ -29,7 +29,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    team: teamReducer,
+    project: projectReducer,
     bug: bugReducer,
     update: updateReducer
 });
