@@ -1,4 +1,5 @@
 ///////////////////////////// Import dependencies ///////////////////////////////
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const Admin = require('../models/admin.model');
