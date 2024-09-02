@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 import Colors from "../../utils/colors.utils";
 import { showInstructionAlert } from "../../utils/Alerts.utils";
@@ -14,6 +15,7 @@ export default function Form() {
   const [ projectName, setProjectName ] = useState("");
   const [ emailAddress, setEmailAddress ] = useState("");
   const [ password, setPassword ] = useState("");
+  const [ passwordHidden, setPasswordHidden ] = useState(true);
   const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
 
   const dispatch = useDispatch();
@@ -93,13 +95,25 @@ export default function Form() {
       />
 
       <label style={styles.label}>Password:</label>
-      <input 
-          type="password" 
-          style={styles.input} 
-          placeholder="Enter your password" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-      />
+      <div style={styles.passwordInputWrapper}>
+        <input 
+            type={passwordHidden ? "password" : "text"}
+            style={styles.passwordInput} 
+            placeholder="Enter your password" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+        />
+        <div 
+          style={styles.hideButton}
+          onClick={() => setPasswordHidden(!passwordHidden)}
+        >
+          {passwordHidden ? (<IoEye 
+            size={window.innerWidth * 0.017}
+          />) : (<IoEyeOff 
+            size={window.innerWidth * 0.017}
+          />)}
+        </div>
+      </div>
 
       <button onClick={signUp} style={styles.button}>Sign up</button>
   </div>
@@ -139,6 +153,31 @@ const styles = {
     marginTop: "20px",
     fontSize: "1rem",
     backgroundColor: Colors.seven
+  },
+  passwordInputWrapper: {
+    width: "100%",
+    height: "1.7rem",
+    display: "flex",
+    alignItems: "center",
+    marginTop: "20px",
+    marginBottom: '10px'
+  },
+  passwordInput: {
+    width: '90%',
+    height: "100%",
+    padding: '8px',
+    borderRadius: "0.3rem",
+    borderWidth: "0",
+    fontSize: "1rem",
+    backgroundColor: Colors.seven
+  },
+  hideButton: {
+    width: "10%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer"
   },
   button: {
     width: "4.8rem",
