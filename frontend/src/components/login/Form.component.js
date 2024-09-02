@@ -4,7 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
-import Colors from "../../utils/colors.utils";
+import SmallLoader from "../shared/SmallLoader.component";
+
+import Colors from "../../utils/Colors.utils";
+import { showInstructionAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -15,6 +18,7 @@ export default function Form() {
     const [ password, setPassword ] = useState("");
     const [ passwordHidden, setPasswordHidden ] = useState(true);
     const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
+    const [ loggingIn, setLoggingIn ] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -30,16 +34,24 @@ export default function Form() {
     }, []);
 
     useEffect(() => {
+        if (loggingIn) {
+            login();
+        }
+    }, [loggingIn]);
+
+    useEffect(() => {
         if (isLoggedIn === 1) {
             dispatch({
                 type: "project/reset_login"
             });
+            setLoggingIn(false);
             navigate("/home");
         } else if (isLoggedIn === 0) {
             dispatch({
                 type: "project/reset_login"
             });
-            window.alert("Wrong credentials.")
+            setLoggingIn(false);
+            showInstructionAlert("Incorrect credentials.")
         }
     }, [isLoggedIn]);
     
@@ -85,7 +97,12 @@ export default function Form() {
                 </div>
             </div>
 
-            <button onClick={login} style={styles.button}>Login</button>
+            <button 
+                onClick={() => setLoggingIn(true)} 
+                style={styles.button}
+            >{loggingIn ? (<SmallLoader 
+                loading={loggingIn}
+            />) : "Login"}</button>
         </div>
     );
 }

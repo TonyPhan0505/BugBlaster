@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import DataRow from '../shared/DataRow.component';
 
-import Colors from "../../utils/colors.utils";
+import Colors from "../../utils/Colors.utils";
+import { showErrorAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -32,7 +33,7 @@ export default function BugCard({ bug }) {
       dispatch({
         type: "bug/reset_delete"
       });
-      window.alert("Failed to delete bug.");
+      showErrorAlert("Failed to delete bug.");
     }
   }, [hasDeleted]);
 

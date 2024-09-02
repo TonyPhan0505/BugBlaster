@@ -11,8 +11,9 @@ import Loader from '../components/shared/Loader.component';
 import NavBar from '../components/shared/NavBar.component';
 import AddUpdateBox from '../components/updates/AddUpdateBox.component';
 
-import Colors from "../utils/colors.utils";
+import Colors from "../utils/Colors.utils";
 import AddPeriod from '../utils/AddPeriod.utils';
+import { showErrorAlert, showInstructionAlert } from "../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -63,7 +64,7 @@ export default function ManageBugPage() {
             dispatch({
                 type: "update/reset_delete"
             });
-            window.alert("Failed to delete update.");
+            showErrorAlert("Failed to delete update.");
         }
     }, [hasDeletedUpdate]);
 
@@ -78,7 +79,7 @@ export default function ManageBugPage() {
             dispatch({
                 type: "update/reset_fetch_bulk"
             });
-            window.alert("Failed to fetch updates for bug.");
+            showErrorAlert("Failed to fetch updates for bug.");
         }
     }, [hasFetchedBulk]);
 
@@ -92,7 +93,7 @@ export default function ManageBugPage() {
             dispatch({
                 type: "bug/reset_update"
             });
-            window.alert("Failed to update bug.");
+            showErrorAlert("Failed to update bug.");
         }
     }, [hasUpdated]);
 
@@ -106,7 +107,7 @@ export default function ManageBugPage() {
             dispatch({
                 type: "bug/reset_delete"
             });
-            window.alert("Failed to delete bug.");
+            showErrorAlert("Failed to delete bug.");
         }
     }, [hasDeletedBug]);
 
@@ -143,7 +144,7 @@ export default function ManageBugPage() {
                 });
             }
         } else {
-            window.alert("Inputs are too short.");
+            showInstructionAlert("Inputs are too short.");
         }
     }
 

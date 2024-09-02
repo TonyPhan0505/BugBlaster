@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import NavBar from '../components/shared/NavBar.component';
 
 import IdGenerator from '../utils/IdGenerator.utils';
-import Colors from "../utils/colors.utils";
+import Colors from "../utils/Colors.utils";
 import AddPeriod from '../utils/AddPeriod.utils';
+import { showInstructionAlert, showErrorAlert } from "../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -39,7 +40,7 @@ export default function CreateBugPage() {
       dispatch({
         type: "bug/reset_create"
       });
-      window.alert("Failed to create bug.")
+      showErrorAlert("Failed to create bug.")
     }
   }, [hasCreated]);
 
@@ -57,7 +58,7 @@ export default function CreateBugPage() {
         }
       });
     } else {
-      window.alert("Inputs are too short.");
+      showInstructionAlert("Inputs are too short.");
     }
   }
 

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from '../components/shared/NavBar.component';
 import Form from '../components/sign_up/Form.component';
 
-import Colors from "../utils/colors.utils";
+import Colors from "../utils/Colors.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////

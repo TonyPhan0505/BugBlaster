@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
-import Colors from "../../utils/colors.utils";
-import { showInstructionAlert } from "../../utils/Alerts.utils";
+import SmallLoader from "../shared/SmallLoader.component";
+
+import Colors from "../../utils/Colors.utils";
+import { showInstructionAlert, showErrorAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -17,6 +19,7 @@ export default function Form() {
   const [ password, setPassword ] = useState("");
   const [ passwordHidden, setPasswordHidden ] = useState(true);
   const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
+  const [ signingUp, setSigningUp ] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,25 +35,35 @@ export default function Form() {
   }, []);
 
   useEffect(() => {
+    if (signingUp) {
+      signUp();
+    }
+  }, [signingUp]);
+
+  useEffect(() => {
     if (isSignedUp === 1) {
-        dispatch({
-            type: "project/reset_sign_up"
-        });
-        navigate("/home");
-    } else if (isSignedUp === 0) {
-        dispatch({
+      dispatch({
           type: "project/reset_sign_up"
-        });
-        window.alert("Failed to sign up.")
+      });
+      setSigningUp(false);
+      navigate("/home");
+    } else if (isSignedUp === 0) {
+      dispatch({
+        type: "project/reset_sign_up"
+      });
+      setSigningUp(false);
+      showErrorAlert("Failed to sign up.");
     } else if (isSignedUp === 3) {
       dispatch({
         type: "project/reset_sign_up"
       });
+      setSigningUp(false);
       showInstructionAlert("This project name was already taken.");
     } else if (isSignedUp === 4) {
       dispatch({
         type: "project/reset_sign_up"
       });
+      setSigningUp(false);
       showInstructionAlert("This email address is not yet registered. Please contact the development team.");
     }
   }, [isSignedUp]);
@@ -115,7 +128,12 @@ export default function Form() {
         </div>
       </div>
 
-      <button onClick={signUp} style={styles.button}>Sign up</button>
+      <button 
+        onClick={() => setSigningUp(true)} 
+        style={styles.button}
+      >{signingUp ? (<SmallLoader 
+        loading={signingUp}
+      />) : "Sign up"}</button>
   </div>
 );
 }

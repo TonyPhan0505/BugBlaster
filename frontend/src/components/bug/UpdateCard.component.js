@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { LuPencilLine } from "react-icons/lu";
 import { useSelector, useDispatch } from "react-redux";
 
-import Colors from "../../utils/colors.utils";
+import Colors from "../../utils/Colors.utils";
 import AddPeriod from "../../utils/AddPeriod.utils";
+
+import { showInstructionAlert, showErrorAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -29,7 +31,7 @@ export default function UpdateCard({ update }) {
       dispatch({
         type: "update/reset_update"
       });
-      window.alert("Failed to edit update.");
+      showErrorAlert("Failed to edit update.");
     }
   }, [hasUpdated]);
 
@@ -60,7 +62,7 @@ export default function UpdateCard({ update }) {
         }
       });
     } else {
-      window.alert("Inputs are too short.");
+      showInstructionAlert("Inputs are too short.");
     }
   }
 

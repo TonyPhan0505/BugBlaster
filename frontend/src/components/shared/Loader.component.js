@@ -2,7 +2,7 @@
 import React from 'react';
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
-import Colors from '../../utils/colors.utils';
+import Colors from '../../utils/Colors.utils';
 //////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// Component /////////////////////////////

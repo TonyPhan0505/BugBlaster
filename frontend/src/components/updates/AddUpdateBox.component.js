@@ -2,9 +2,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
-import Colors from "../../utils/colors.utils";
+import Colors from "../../utils/Colors.utils";
 import IdGenerator from "../../utils/IdGenerator.utils";
 import AddPeriod from '../../utils/AddPeriod.utils';
+import { showInstructionAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -37,7 +38,7 @@ export default function AddUpdateBox({
       setFixLocation("");
       setFixDetails("");
     } else {
-      window.alert("Inputs are too short.");
+      showInstructionAlert("Inputs are too short.");
     }
   }
 

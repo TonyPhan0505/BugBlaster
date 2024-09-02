@@ -8,7 +8,7 @@ import NavBar from "../components/shared/NavBar.component";
 import BugCard from "../components/home/BugCard.component";
 import Loader from '../components/shared/Loader.component';
 
-import Colors from "../utils/colors.utils";
+import Colors from "../utils/Colors.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
