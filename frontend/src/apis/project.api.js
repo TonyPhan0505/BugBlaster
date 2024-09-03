@@ -15,7 +15,9 @@ export const login = async (
     }).then(
         res => {
             const accessToken = res.data.accessToken;
-            localStorage.setItem('accessToken', accessToken);
+            if (accessToken) { 
+                localStorage.setItem('accessToken', accessToken);
+            }
             return res; 
         }
     ).catch(
@@ -36,7 +38,9 @@ export const signUp = async (
     }).then(
         res => { 
             const accessToken = res.data.accessToken;
-            localStorage.setItem('accessToken', accessToken);
+            if (accessToken) { 
+                localStorage.setItem('accessToken', accessToken);
+            }
             return res; 
         }
     ).catch(

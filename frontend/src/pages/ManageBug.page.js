@@ -28,7 +28,7 @@ export default function ManageBugPage() {
     const hasUpdated = useSelector(state => state.bug.hasUpdated);
     const hasDeletedBug = useSelector(state => state.bug.hasDeleted);
 
-    const [ briefDescription, setBriefDescription ] = useState(bug.briefDescription);
+    const [ title, setTitle ] = useState(bug.title);
     const [ detailedDescription, setDetailedDescription ] = useState(bug.detailedDescription);
     const [ assignees, setAssignees ] = useState(bug.assignees);
     const [ solution, setSolution ] = useState(bug.solution ? bug.solution : "");
@@ -119,13 +119,13 @@ export default function ManageBugPage() {
     }
 
     function updateBug() {
-        if (briefDescription.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
+        if (title.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
             if (solution.length > 1) {
                 dispatch({
                     type: "bug/update",
                     payload: {
                         id: bug.id,
-                        briefDescription: AddPeriod(briefDescription),
+                        title: AddPeriod(title),
                         detailedDescription: AddPeriod(detailedDescription),
                         assignees: AddPeriod(assignees),
                         solution: AddPeriod(solution)
@@ -136,7 +136,7 @@ export default function ManageBugPage() {
                     type: "bug/update",
                     payload: {
                         id: bug.id,
-                        briefDescription: AddPeriod(briefDescription),
+                        title: AddPeriod(title),
                         detailedDescription: AddPeriod(detailedDescription),
                         assignees: AddPeriod(assignees),
                         solution: undefined
@@ -185,12 +185,12 @@ export default function ManageBugPage() {
                         prompt="Created on"
                         data={`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}
                     />
-                    <p style={styles.prompt}>Brief description:</p>
+                    <p style={styles.prompt}>Title:</p>
                     <input 
                         type="text"
                         style={styles.singleLineInputField}
-                        value={briefDescription}
-                        onChange={(e) => setBriefDescription(e.target.value)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         maxLength={23}
                     />
                     <p style={styles.prompt}>Detailed description:</p>

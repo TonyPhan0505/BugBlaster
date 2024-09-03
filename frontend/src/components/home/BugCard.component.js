@@ -50,7 +50,7 @@ export default function BugCard({ bug }) {
 
   function deleteBug() {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this bug?"
+      `Ok with deleting issue ${bug.id}?`
     );
     if (confirmed) {
       dispatch({
@@ -68,7 +68,7 @@ export default function BugCard({ bug }) {
     <div style={styles.root}>
       <div style={styles.topBar}>
         <div style={styles.leftTopBar} onClick={navToManageBug}>
-          <p style={styles.id}>Bug: #{bug.id}</p>
+          <p style={styles.id}>Issue: #{bug.id}</p>
         </div>
         <div style={styles.rightTopBar}>
           <MdDelete 
@@ -82,8 +82,8 @@ export default function BugCard({ bug }) {
         data={`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}
       />
       <DataRow 
-        prompt="Brief description"
-        data={formattedData(bug.briefDescription)}
+        prompt="Title"
+        data={formattedData(bug.title)}
       />
       <DataRow 
         prompt="Assignees"
@@ -99,11 +99,12 @@ const styles = {
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "21.25rem",
+    width: "100%",
     borderRadius: "7px",
-    border: `2px solid ${Colors.one}`,
+    backgroundColor: Colors.seven,
     marginTop: "25px",
-    paddingBottom: "10px"
+    padding: "10px 20px",
+    marginLeft: "12px"
   },
 
   topBar: {
@@ -135,7 +136,7 @@ const styles = {
   id: {
     fontSize: "1.325rem",
     fontFamily: "Arial",
-    color: Colors.two,
+    color: Colors.four,
     margin: "12px 10px",
     cursor: "pointer"
   }

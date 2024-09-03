@@ -20,6 +20,7 @@ export default function HomePage() {
   const [ searchText, setSearchText ] = useState("");
   const [ filterOption, setFilterOption ] = useState("Unfixed");
   const [ loading, setLoading ] = useState(true);
+  const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +29,16 @@ export default function HomePage() {
     if (!localStorage.getItem("accessToken")) {
       navigate("/");
     }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -82,7 +93,7 @@ export default function HomePage() {
       return (
         bug.id.toLowerCase().includes(searchText.toLowerCase())
           ||
-        bug.briefDescription.toLowerCase().includes(searchText.toLowerCase())
+        bug.title.toLowerCase().includes(searchText.toLowerCase())
           ||
         bug.detailedDescription.toLowerCase().includes(searchText.toLowerCase())
           ||
@@ -97,19 +108,19 @@ export default function HomePage() {
         actionText="Log out"
         action={navAction}
       />
-      <div style={styles.main}>
-        <div style={styles.searchSortFrame}>
-          <div style={styles.searchFrame}>
+      <div style={isMobile ? styles.mobileMain : styles.main}>
+        <div style={isMobile ? styles.mobileSearchSortFrame : styles.searchSortFrame}>
+          <div style={isMobile ? styles.mobileSearchFrame : styles.searchFrame}>
             <MdOutlineScreenSearchDesktop style={styles.searchIcon}/>
             <input 
               type="text"
-              style={styles.searchField}
-              placeholder="Search"
+              style={isMobile ? styles.mobileSearchField : styles.searchField}
+              placeholder="search by id, title, description, assignees"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
-          <div style={styles.sortFrame}>
+          <div style={isMobile ? styles.mobileSortFrame : styles.sortFrame}>
             <button 
               onClick={() => setFilterOption("Fixed")} 
               style={ 
@@ -126,8 +137,14 @@ export default function HomePage() {
               }>Unfixed</button>
           </div>
         </div>
-        <button onClick={navToAddBugPage} style={styles.addBugButton}>Add new bug</button>
-        <div style={styles.bugsFrame}>
+        {isMobile && (<div style={styles.divider}/>)}
+        <div style={styles.addBugButtonWrapper}>
+          <button 
+            onClick={navToAddBugPage} 
+            style={styles.addBugButton}
+          >Add new issue</button>
+        </div>
+        <div style={isMobile ? styles.mobileBugsFrame : styles.bugsFrame}>
           {
             loading ?
               <Loader loading={loading}/>
@@ -157,6 +174,14 @@ const styles = {
     flexDirection: "column"
   },
 
+  mobileMain: {
+    width: "100%",
+    minHeight: window.innerHeight,
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "30px"
+  },
+
   main: {
     width: "100%",
     minHeight: window.innerHeight,
@@ -166,14 +191,27 @@ const styles = {
     alignItems: "center"
   },
 
+  mobileSearchSortFrame: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column"
+  },
+
   searchSortFrame: {
     width: "100%",
     display: "flex",
     alignItems: "center"
   },
 
+  mobileSearchFrame: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "15px"
+  },
+
   searchFrame: {
-    width: "55%",
+    width: "60%",
     display: "flex",
     alignItems: "center"
   },
@@ -181,8 +219,35 @@ const styles = {
   searchIcon: {
     fontSize: "1.9rem",
     color: Colors.two,
-    marginLeft: "20px",
-    marginRight: "5px"
+    marginLeft: "12px",
+    marginRight: "0.3125rem"
+  },
+
+  mobileSearchField: {
+    borderTopWidth: "0px",
+    borderLeftWidth: "0px",
+    borderRightWidth: "0px",
+    borderBottomWidth: "2px",
+    borderColor: Colors.three,
+    width: "82%",
+    fontSize: '1.1rem'
+  },
+
+  searchField: {
+    borderTopWidth: "0px",
+    borderLeftWidth: "0px",
+    borderRightWidth: "0px",
+    borderBottomWidth: "2px",
+    borderColor: Colors.three,
+    width: "44%",
+    fontSize: '1.1rem'
+  },
+
+  mobileSortFrame: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "12px"
   },
 
   sortFrame: {
@@ -192,19 +257,9 @@ const styles = {
     justifyContent: "flex-end"
   },
 
-  searchField: {
-    borderTopWidth: "0px",
-    borderLeftWidth: "0px",
-    borderRightWidth: "0px",
-    borderBottomWidth: "2px",
-    borderColor: Colors.three,
-    width: "12.5rem",
-    fontSize: '1.2rem'
-  },
-
   chosenOptionButton: {
     width: "6.5rem",
-    height: "1.9rem",
+    height: "2.2rem",
     backgroundColor: Colors.two,
     borderWidth: "0",
     borderRadius: "5px",
@@ -216,7 +271,7 @@ const styles = {
 
   optionButton: {
     width: "6.5rem",
-    height: "1.9rem",
+    height: "2.2rem",
     border: `2px solid ${Colors.two}`,
     backgroundColor: Colors.five,
     borderRadius: "5px",
@@ -226,20 +281,41 @@ const styles = {
     cursor: "pointer"
   },
 
+  divider: {
+    width: "4rem",
+    height: "2px",
+    backgroundColor: Colors.six,
+    marginLeft: "12px",
+    marginTop: "30px"
+  },
+
+  addBugButtonWrapper: {
+    width: "100%",
+    display: "flex"
+  },
+
   addBugButton: {
-    width: "10.25rem",
-    height: "40px",
+    width: "9rem",
+    height: "2.3875rem",
     border: "0",
     borderRadius: "5px",
-    backgroundColor: Colors.two,
-    marginTop: "50px",
+    backgroundColor: Colors.four,
+    marginLeft: "12px",
+    marginTop: "1.125rem",
     fontSize: "1rem",
     color: Colors.five,
     cursor: "pointer"
   },
 
+  mobileBugsFrame: {
+    width: "80%",
+    marginTop: "10px",
+    display: "flex",
+    flexDirection: "column"
+  },
+
   bugsFrame: {
-    width: "22.25rem",
+    width: "48%",
     marginTop: "10px",
     display: "flex",
     flexDirection: "column",

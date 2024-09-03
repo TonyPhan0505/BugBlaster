@@ -28,7 +28,7 @@ exports.create = (req, res) => {
     const newBug = new Bug({
         id: bug.id,
         datetime: bug.datetime,
-        briefDescription: bug.briefDescription,
+        title: bug.title,
         detailedDescription: bug.detailedDescription,
         assignees: bug.assignees,
         projectName: bug.projectName
@@ -54,7 +54,7 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
     const bug = req.body.bug;
     Bug.updateOne({ id: bug.id }, {
-        briefDescription: bug.briefDescription,
+        title: bug.title,
         detailedDescription: bug.detailedDescription,
         assignees: bug.assignees
     }).then(

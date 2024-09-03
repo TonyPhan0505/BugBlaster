@@ -7,7 +7,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import SmallLoader from "../shared/SmallLoader.component";
 
 import Colors from "../../utils/Colors.utils";
-import { showInstructionAlert } from "../../utils/Alerts.utils";
+import { showSuccessAlert, showInstructionAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -45,6 +45,7 @@ export default function Form() {
                 type: "project/reset_login"
             });
             setLoggingIn(false);
+            showSuccessAlert("Successfully logged in.");
             navigate("/home");
         } else if (isLoggedIn === 0) {
             dispatch({
@@ -63,6 +64,10 @@ export default function Form() {
                 password: password
             }
         });
+    }
+
+    function showForgotPasswordInstruction() {
+        showInstructionAlert("Please contact the development team using your registered email address.");
     }
 
     return (
@@ -97,12 +102,16 @@ export default function Form() {
                 </div>
             </div>
 
+            <p 
+                style={styles.forgotPassword}
+                onClick={showForgotPasswordInstruction}
+            >Forgot password?</p>
+
             <button 
                 onClick={() => setLoggingIn(true)} 
                 style={styles.button}
-            >{loggingIn ? (<SmallLoader 
-                loading={loggingIn}
-            />) : "Login"}</button>
+            >{loggingIn ? (<SmallLoader />) 
+            : "Login"}</button>
         </div>
     );
 }
@@ -164,6 +173,14 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    cursor: "pointer"
+  },
+  forgotPassword: {
+    textDecoration: 'underline',
+    fontFamily: "Arial",
+    fontSize: "0.92rem",
+    marginTop: "30px",
+    marginBottom: "15px",
     cursor: "pointer"
   },
   button: {

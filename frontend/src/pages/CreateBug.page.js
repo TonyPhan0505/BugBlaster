@@ -17,12 +17,23 @@ export default function CreateBugPage() {
   const hasCreated = useSelector(state => state.bug.hasCreated);
 
   const [ id, _ ] = useState(IdGenerator());
-  const [ briefDescription, setBriefDescription ] = useState("");
+  const [ title, setTitle ] = useState("");
   const [ detailedDescription, setDetailedDescription ] = useState("");
   const [ assignees, setAssignees ] = useState("");
+  const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -45,13 +56,13 @@ export default function CreateBugPage() {
   }, [hasCreated]);
 
   function createBugHandler() {
-    if (briefDescription.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
+    if (title.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
       dispatch({
         type: "bug/create",
         payload: {
           id: id,
           datetime: new Date().getTime(),
-          briefDescription: AddPeriod(briefDescription),
+          title: AddPeriod(title),
           detailedDescription: AddPeriod(detailedDescription),
           assignees: AddPeriod(assignees),
           projectName: currentProject.uniqueName
@@ -79,19 +90,19 @@ export default function CreateBugPage() {
         actionText="Log out"
         action={navAction}
       />
-      <div style={styles.main}>
+      <div style={isMobile ? styles.mobileMain : styles.main}>
         <p style={styles.id}>Bug Id: #{id}</p>
         <input 
           type="text"
           style={styles.singleLineInputField}
-          placeholder="brief description"
-          value={briefDescription}
-          onChange={(e) => setBriefDescription(e.target.value)}
+          placeholder="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           maxLength={23}
         />
         <textarea
           value={detailedDescription}
-          placeholder="Detailed description"
+          placeholder="detailed description"
           onChange={(e) => setDetailedDescription(e.target.value)}
           rows={3}
           style={styles.multilineInputField}
@@ -118,10 +129,19 @@ const styles = {
   root: {
     width: "100%",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    alignItems: "center"
   },
 
   main: {
+    marginTop: "30px",
+    width: "35%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+
+  mobileMain: {
     marginTop: "30px",
     width: "100%",
     display: "flex",
@@ -131,13 +151,13 @@ const styles = {
 
   id: {
     fontSize: "1.525rem",
-      fontFamily: "Arial",
-      color: Colors.four
+    fontFamily: "Arial",
+    color: Colors.four
   },
 
   singleLineInputField: {
-    width: "320px",
-    height: '30px',
+    width: "80%",
+    height: '1.875rem',
     backgroundColor: Colors.seven,
     borderWidth: '0',
     fontSize: '1.055rem',
@@ -148,7 +168,7 @@ const styles = {
   },
 
   multilineInputField: {
-    width: "320px",
+    width: "80%",
     borderWidth: '0',
     backgroundColor: Colors.seven,
     fontSize: '1.055rem',
@@ -159,7 +179,7 @@ const styles = {
   },
 
   buttonsFrame: {
-    width: "320px",
+    width: "80%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -167,8 +187,8 @@ const styles = {
   },
 
   createButton: {
-    width: "7.5rem",
-    height: "2.5rem",
+    width: "45%",
+    height: `${window.innerHeight * 0.055}px`,
     marginRight: "20px",
     backgroundColor: Colors.three,
     borderWidth: "0",
@@ -176,12 +196,12 @@ const styles = {
     color: Colors.five,
     fontFamily: "Arial",
     cursor: 'pointer',
-    fontSize: '1rem'
+    fontSize: '0.9rem'
   },
 
   cancelButton: {
-    width: "7.5rem",
-    height: "2.5rem",
+    width: "45%",
+    height: `${window.innerHeight * 0.055}px`,
     marginRight: "20px",
     backgroundColor: Colors.five,
     border: `2px solid ${Colors.two}`,
@@ -189,7 +209,7 @@ const styles = {
     color: Colors.six,
     fontFamily: "Arial",
     cursor: 'pointer',
-    fontSize: '1rem'
+    fontSize: '0.9rem'
   }
 };
 ///////////////////////////////////////////

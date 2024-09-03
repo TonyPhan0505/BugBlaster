@@ -20,7 +20,7 @@ const BugSchema = new Schema({
         type: Date,
         required: true
     },
-    briefDescription: {
+    title: {
         type: String,
         required: true,
         trim: true

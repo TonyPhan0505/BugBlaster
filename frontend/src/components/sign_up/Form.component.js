@@ -7,7 +7,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import SmallLoader from "../shared/SmallLoader.component";
 
 import Colors from "../../utils/Colors.utils";
-import { showInstructionAlert, showErrorAlert } from "../../utils/Alerts.utils";
+import { showSuccessAlert, showInstructionAlert, showErrorAlert } from "../../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
@@ -46,6 +46,7 @@ export default function Form() {
           type: "project/reset_sign_up"
       });
       setSigningUp(false);
+      showSuccessAlert("Successfully signed up.");
       navigate("/home");
     } else if (isSignedUp === 0) {
       dispatch({
@@ -79,6 +80,7 @@ export default function Form() {
         }
       });
     } else {
+      setSigningUp(false);
       showInstructionAlert("Project name must be at least 5-character long without any whitespace.");
     }
   }
@@ -131,9 +133,8 @@ export default function Form() {
       <button 
         onClick={() => setSigningUp(true)} 
         style={styles.button}
-      >{signingUp ? (<SmallLoader 
-        loading={signingUp}
-      />) : "Sign up"}</button>
+      >{signingUp ? (<SmallLoader />) 
+      : "Sign up"}</button>
   </div>
 );
 }
