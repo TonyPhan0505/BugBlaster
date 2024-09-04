@@ -96,8 +96,6 @@ export default function HomePage() {
         bug.title.toLowerCase().includes(searchText.toLowerCase())
           ||
         bug.detailedDescription.toLowerCase().includes(searchText.toLowerCase())
-          ||
-        bug.assignees.toLowerCase().includes(searchText.toLowerCase())
       )
     });
   }
@@ -115,7 +113,7 @@ export default function HomePage() {
             <input 
               type="text"
               style={isMobile ? styles.mobileSearchField : styles.searchField}
-              placeholder="search by id, title, description, assignees"
+              placeholder="search by id, title, description"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />

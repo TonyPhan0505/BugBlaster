@@ -30,7 +30,6 @@ export default function ManageBugPage() {
 
     const [ title, setTitle ] = useState(bug.title);
     const [ detailedDescription, setDetailedDescription ] = useState(bug.detailedDescription);
-    const [ assignees, setAssignees ] = useState(bug.assignees);
     const [ solution, setSolution ] = useState(bug.solution ? bug.solution : "");
     const [ loading, setLoading ] = useState(true);
     const [ addUpdateBoxOpened, setAddUpdateBoxOpened ] = useState(false);
@@ -119,7 +118,7 @@ export default function ManageBugPage() {
     }
 
     function updateBug() {
-        if (title.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
+        if (title.length >= 5 && detailedDescription.length >= 5) {
             if (solution.length > 1) {
                 dispatch({
                     type: "bug/update",
@@ -127,7 +126,6 @@ export default function ManageBugPage() {
                         id: bug.id,
                         title: AddPeriod(title),
                         detailedDescription: AddPeriod(detailedDescription),
-                        assignees: AddPeriod(assignees),
                         solution: AddPeriod(solution)
                     }
                 });
@@ -138,7 +136,6 @@ export default function ManageBugPage() {
                         id: bug.id,
                         title: AddPeriod(title),
                         detailedDescription: AddPeriod(detailedDescription),
-                        assignees: AddPeriod(assignees),
                         solution: undefined
                     }
                 });
@@ -199,13 +196,6 @@ export default function ManageBugPage() {
                         onChange={(e) => setDetailedDescription(e.target.value)}
                         rows={3}
                         style={styles.multilineInputField}
-                    />
-                    <p style={styles.prompt}>Assignees:</p>
-                    <input 
-                        type="text"
-                        style={styles.singleLineInputField}
-                        value={assignees}
-                        onChange={(e) => setAssignees(e.target.value)}
                     />
                     <div style={styles.divider} />
                     <div style={styles.updateTopBar}>

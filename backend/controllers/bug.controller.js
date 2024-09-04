@@ -30,7 +30,6 @@ exports.create = (req, res) => {
         datetime: bug.datetime,
         title: bug.title,
         detailedDescription: bug.detailedDescription,
-        assignees: bug.assignees,
         projectName: bug.projectName
     });
     newBug.save().then(
@@ -55,8 +54,7 @@ exports.update = (req, res) => {
     const bug = req.body.bug;
     Bug.updateOne({ id: bug.id }, {
         title: bug.title,
-        detailedDescription: bug.detailedDescription,
-        assignees: bug.assignees
+        detailedDescription: bug.detailedDescription
     }).then(
         async () => {
             const updatedBug = await Bug.findOne({ id: bug.id });

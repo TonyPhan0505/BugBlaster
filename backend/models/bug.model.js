@@ -30,11 +30,6 @@ const BugSchema = new Schema({
         required: true,
         trim: true
     },
-    assignees: {
-        type: String,
-        required: true,
-        trim: true
-    },
     updates: {
         type: [String],
         required: true,

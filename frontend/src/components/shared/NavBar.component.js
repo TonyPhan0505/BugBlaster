@@ -1,5 +1,6 @@
 ////////////////// Import dependencies //////////////////
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 import Colors from "../../utils/Colors.utils";
 import logo from "../../assets/logoBugblaster.png";
@@ -7,17 +8,25 @@ import logo from "../../assets/logoBugblaster.png";
 
 ////////////////// Component //////////////////
 export default function NavBar({ actionText, action }) {
+  const navigate = useNavigate();
+
   return (
     <div style={styles.root}>
-      <div style={styles.logoFrame}>
+      <div 
+        style={styles.logoFrame}
+      >
         <img 
           src={logo}
           alt="Logo"
           style={styles.logo}
+          onClick={() => navigate("/home")}
         />
       </div>
       <div style={styles.navFrame}>
-        <button onClick={action} style={styles.button}>{actionText}</button>
+        <button 
+          onClick={action} 
+          style={styles.button}
+        >{actionText}</button>
       </div>
     </div>
   )
@@ -45,7 +54,8 @@ const styles = {
   logo: {
     width: "10.375rem",
     height: "auto",
-    marginLeft: "20px"
+    marginLeft: "20px",
+    cursor: "pointer"
   },
 
   navFrame: {

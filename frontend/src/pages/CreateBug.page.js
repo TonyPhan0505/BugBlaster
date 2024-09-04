@@ -19,7 +19,6 @@ export default function CreateBugPage() {
   const [ id, _ ] = useState(IdGenerator());
   const [ title, setTitle ] = useState("");
   const [ detailedDescription, setDetailedDescription ] = useState("");
-  const [ assignees, setAssignees ] = useState("");
   const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
 
   const navigate = useNavigate();
@@ -56,7 +55,7 @@ export default function CreateBugPage() {
   }, [hasCreated]);
 
   function createBugHandler() {
-    if (title.length > 5 && detailedDescription.length > 5 && assignees.length > 2) {
+    if (title.length >= 5 && detailedDescription.length >= 5) {
       dispatch({
         type: "bug/create",
         payload: {
@@ -64,12 +63,11 @@ export default function CreateBugPage() {
           datetime: new Date().getTime(),
           title: AddPeriod(title),
           detailedDescription: AddPeriod(detailedDescription),
-          assignees: AddPeriod(assignees),
           projectName: currentProject.uniqueName
         }
       });
     } else {
-      showInstructionAlert("Inputs are too short.");
+      showInstructionAlert("Title and description must be at least 5 characters long.");
     }
   }
 
@@ -106,13 +104,6 @@ export default function CreateBugPage() {
           onChange={(e) => setDetailedDescription(e.target.value)}
           rows={3}
           style={styles.multilineInputField}
-        />
-        <input 
-          type="text"
-          style={styles.singleLineInputField}
-          placeholder="assignees"
-          value={assignees}
-          onChange={(e) => setAssignees(e.target.value)}
         />
         <div style={styles.buttonsFrame}>
           <button onClick={createBugHandler} style={styles.createButton}>Create</button>

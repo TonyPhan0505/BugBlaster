@@ -50,7 +50,7 @@ export default function BugCard({ bug }) {
 
   function deleteBug() {
     const confirmed = window.confirm(
-      `Ok with deleting issue ${bug.id}?`
+      `Ok with deleting issue #${bug.id}?`
     );
     if (confirmed) {
       dispatch({
@@ -65,9 +65,14 @@ export default function BugCard({ bug }) {
   }
 
   return (
-    <div style={styles.root}>
+    <div 
+      style={styles.root}
+    >
       <div style={styles.topBar}>
-        <div style={styles.leftTopBar} onClick={navToManageBug}>
+        <div 
+          style={styles.leftTopBar} 
+          onClick={navToManageBug}
+        >
           <p style={styles.id}>Issue: #{bug.id}</p>
         </div>
         <div style={styles.rightTopBar}>
@@ -77,18 +82,19 @@ export default function BugCard({ bug }) {
           />
         </div>
       </div>
-      <DataRow 
-        prompt="Created on"
-        data={`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}
-      />
-      <DataRow 
-        prompt="Title"
-        data={formattedData(bug.title)}
-      />
-      <DataRow 
-        prompt="Assignees"
-        data={formattedData(bug.assignees)}
-      />
+      <div 
+        style={styles.dataWrapper}
+        onClick={navToManageBug}
+      >
+        <DataRow 
+          prompt="Created on"
+          data={`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}
+        />
+        <DataRow 
+          prompt="Title"
+          data={formattedData(bug.title)}
+        />
+      </div>
     </div>
   )
 }
@@ -116,7 +122,8 @@ const styles = {
   leftTopBar: {
     width: "85%",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    cursor: "pointer"
   },
 
   rightTopBar: {
@@ -137,7 +144,10 @@ const styles = {
     fontSize: "1.325rem",
     fontFamily: "Arial",
     color: Colors.four,
-    margin: "12px 10px",
+    margin: "12px 10px"
+  },
+
+  dataWrapper: {
     cursor: "pointer"
   }
 };
