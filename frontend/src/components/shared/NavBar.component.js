@@ -70,7 +70,7 @@ const styles = {
     width: "6.6rem",
     height: "2.3rem",
     marginRight: "20px",
-    backgroundColor: Colors.four,
+    backgroundColor: Colors.two,
     borderWidth: "0",
     borderRadius: '5px',
     color: Colors.five,

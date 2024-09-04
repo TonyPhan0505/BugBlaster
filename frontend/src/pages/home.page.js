@@ -107,6 +107,14 @@ export default function HomePage() {
         action={navAction}
       />
       <div style={isMobile ? styles.mobileMain : styles.main}>
+        <div style={styles.liveLinkFrame}>
+          <p style={styles.projectName}>{
+            currentProject.uniqueName
+          }</p>
+        </div>
+        <div style={styles.dividerWrapper}>
+          <div style={styles.divider}/>
+        </div>
         <div style={isMobile ? styles.mobileSearchSortFrame : styles.searchSortFrame}>
           <div style={isMobile ? styles.mobileSearchFrame : styles.searchFrame}>
             <MdOutlineScreenSearchDesktop style={styles.searchIcon}/>
@@ -174,7 +182,6 @@ const styles = {
 
   mobileMain: {
     width: "100%",
-    minHeight: window.innerHeight,
     display: "flex",
     flexDirection: "column",
     marginTop: "30px"
@@ -182,11 +189,28 @@ const styles = {
 
   main: {
     width: "100%",
-    minHeight: window.innerHeight,
     display: "flex",
     flexDirection: "column",
     marginTop: "30px",
     alignItems: "center"
+  },
+
+  liveLinkFrame: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column"
+  },
+
+  projectName: {
+    fontSize: "1.4rem",
+    fontFamily: "Arial",
+    marginLeft: "12px",
+    marginTop: "0px"
+  },
+
+  dividerWrapper: {
+    width: "100%",
+    marginBottom: "0.9375rem"
   },
 
   mobileSearchSortFrame: {
@@ -232,12 +256,11 @@ const styles = {
   },
 
   searchField: {
-    borderTopWidth: "0px",
-    borderLeftWidth: "0px",
-    borderRightWidth: "0px",
-    borderBottomWidth: "2px",
-    borderColor: Colors.three,
+    borderRadius: "0.3125rem",
+    backgroundColor: Colors.seven,
+    border: "0px",
     width: "44%",
+    padding: "0.4375rem",
     fontSize: '1.1rem'
   },
 
@@ -258,7 +281,7 @@ const styles = {
   chosenOptionButton: {
     width: "6.5rem",
     height: "2.2rem",
-    backgroundColor: Colors.two,
+    backgroundColor: Colors.four,
     borderWidth: "0",
     borderRadius: "5px",
     color: Colors.five,
@@ -270,11 +293,11 @@ const styles = {
   optionButton: {
     width: "6.5rem",
     height: "2.2rem",
-    border: `2px solid ${Colors.two}`,
-    backgroundColor: Colors.five,
+    backgroundColor: Colors.eight,
+    border: "0px",
     borderRadius: "5px",
     marginRight: "20px",
-    color: Colors.six,
+    color: Colors.five,
     fontSize: "0.95rem",
     cursor: "pointer"
   },
