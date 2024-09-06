@@ -21,6 +21,11 @@ const ProjectSchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    link: {
+        type: String,
+        required: false,
+        trim: true
     }
 });
 ///////////////////////////////////////////

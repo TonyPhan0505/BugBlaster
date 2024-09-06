@@ -56,16 +56,20 @@ export default function CreateBugPage() {
 
   function createBugHandler() {
     if (title.length >= 5 && detailedDescription.length >= 5) {
-      dispatch({
-        type: "bug/create",
-        payload: {
-          id: id,
-          datetime: new Date().getTime(),
-          title: AddPeriod(title),
-          detailedDescription: AddPeriod(detailedDescription),
-          projectName: currentProject.uniqueName
-        }
-      });
+      if (title.length <= 30) {
+        dispatch({
+          type: "bug/create",
+          payload: {
+            id: id,
+            datetime: new Date().getTime(),
+            title: AddPeriod(title),
+            detailedDescription: AddPeriod(detailedDescription),
+            projectName: currentProject.uniqueName
+          }
+        });
+      } else {
+        showInstructionAlert("Title must be no longer than 30 characters.");
+      }
     } else {
       showInstructionAlert("Title and description must be at least 5 characters long.");
     }
@@ -89,7 +93,7 @@ export default function CreateBugPage() {
         action={navAction}
       />
       <div style={isMobile ? styles.mobileMain : styles.main}>
-        <p style={styles.id}>Bug Id: #{id}</p>
+        <p style={styles.id}>Issue Id: #{id}</p>
         <input 
           type="text"
           style={styles.singleLineInputField}

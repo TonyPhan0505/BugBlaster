@@ -140,7 +140,7 @@ const styles = {
 
   editRoot: {
     width: "55%",
-    paddingTop: "12px",
+    paddingTop: "20px",
     paddingBottom: "15px",
     display: "flex",
     flexDirection: "column",
@@ -170,7 +170,7 @@ const styles = {
     fontFamily: "Arial",
     marginTop: "0px",
     marginBottom: "0px",
-    marginLeft: "12px",
+    marginLeft: "20px",
     color: Colors.two
   },
 
@@ -179,13 +179,13 @@ const styles = {
     fontFamily: "Arial",
     marginTop: "0px",
     marginBottom: "0px",
-    marginLeft: "12px",
+    marginLeft: "20px",
     color: Colors.six
   },
 
   editIcon: {
     fontSize: "1.025rem",
-    marginRight: "12px",
+    marginRight: "20px",
     cursor: "pointer",
     color: Colors.four
   },
@@ -207,10 +207,10 @@ const styles = {
     borderWidth: '0',
     fontSize: '1.055rem',
     fontFamily: "Arial",
-    padding: '12px',
+    padding: '20px',
     borderRadius: "5px",
     marginTop: "15px",
-    marginLeft: "12px"
+    marginLeft: "20px"
   },
 
   multilineInputField: {
@@ -219,10 +219,10 @@ const styles = {
     backgroundColor: Colors.five,
     fontSize: '1.055rem',
     fontFamily: "Arial",
-    padding: "12px",
+    padding: "20px",
     borderRadius: "5px",
     marginTop: "20px",
-    marginLeft: "12px"
+    marginLeft: "20px"
   },
 
   buttonsFrame: {
@@ -243,7 +243,7 @@ const styles = {
     fontFamily: "Arial",
     cursor: 'pointer',
     fontSize: '0.89rem',
-    marginLeft: "12px"
+    marginLeft: "20px"
   },
 
   deleteButton: {

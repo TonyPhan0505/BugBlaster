@@ -110,7 +110,7 @@ const styles = {
     backgroundColor: Colors.seven,
     marginTop: "25px",
     padding: "10px 20px",
-    marginLeft: "12px"
+    marginLeft: "20px"
   },
 
   topBar: {
@@ -144,7 +144,7 @@ const styles = {
     fontSize: "1.325rem",
     fontFamily: "Arial",
     color: Colors.four,
-    margin: "12px 10px"
+    margin: "20px 10px"
   },
 
   dataWrapper: {

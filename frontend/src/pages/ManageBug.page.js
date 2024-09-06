@@ -35,9 +35,20 @@ export default function ManageBugPage() {
     const [ addUpdateBoxOpened, setAddUpdateBoxOpened ] = useState(false);
     const [ fixLocation, setFixLocation ] = useState("");
     const [ fixDetails, setFixDetails ] = useState("");
+    const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (!localStorage.getItem("accessToken")) {
@@ -147,7 +158,7 @@ export default function ManageBugPage() {
 
     function deleteBug() {
         const confirmed = window.confirm(
-          "Are you sure you want to delete this bug?"
+          `Are you ok with deleting issue #${bug.id}?`
         );
         if (confirmed) {
           dispatch({
@@ -171,9 +182,9 @@ export default function ManageBugPage() {
                 actionText="Log out"
                 action={navAction}
             />
-            <div style={styles.main}>
-                <div style={styles.innerMain}>
-                    <p style={styles.id}>Bug: #{bug.id}</p>
+            <div style={isMobile ? styles.mobileMain : styles.main}>
+                <div style={isMobile ? styles.mobileInnerMain : styles.innerMain}>
+                    <p style={styles.id}>Issue: #{bug.id}</p>
                     <LargeDataRow 
                         prompt="Status"
                         data={bug.fixed ? "Fixed" : "Unfixed"}
@@ -185,7 +196,7 @@ export default function ManageBugPage() {
                     <p style={styles.prompt}>Title:</p>
                     <input 
                         type="text"
-                        style={styles.singleLineInputField}
+                        style={isMobile ? styles.mobileSingleLineInputField : styles.singleLineInputField}
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         maxLength={23}
@@ -195,7 +206,7 @@ export default function ManageBugPage() {
                         value={detailedDescription}
                         onChange={(e) => setDetailedDescription(e.target.value)}
                         rows={3}
-                        style={styles.multilineInputField}
+                        style={isMobile ? styles.mobileMultilineInputField : styles.multilineInputField}
                     />
                     <div style={styles.divider} />
                     <div style={styles.updateTopBar}>
@@ -212,14 +223,20 @@ export default function ManageBugPage() {
                     </div>
                     {
                         addUpdateBoxOpened ?
-                            <AddUpdateBox 
-                                bugId={bug.id}
-                                setAddUpdateBoxOpened={setAddUpdateBoxOpened}
-                                fixLocation={fixLocation}
-                                setFixLocation={setFixLocation}
-                                fixDetails={fixDetails}
-                                setFixDetails={setFixDetails}
-                            />
+                            <div style={
+                                isMobile 
+                                    ? styles.mobileAddUpdateFrame 
+                                : styles.addUpdateFrame
+                            }>
+                                <AddUpdateBox 
+                                    bugId={bug.id}
+                                    setAddUpdateBoxOpened={setAddUpdateBoxOpened}
+                                    fixLocation={fixLocation}
+                                    setFixLocation={setFixLocation}
+                                    fixDetails={fixDetails}
+                                    setFixDetails={setFixDetails}
+                                />
+                            </div>
                         : null
                     }
                     {
@@ -241,11 +258,11 @@ export default function ManageBugPage() {
                         value={solution}
                         onChange={(e) => setSolution(e.target.value)}
                         rows={3}
-                        style={styles.multilineInputField}
+                        style={isMobile ? styles.mobileMultilineInputField : styles.multilineInputField}
                     />
-                    <div style={styles.buttonsFrame}>
-                        <button onClick={updateBug} style={styles.updateButton}>Update bug</button>
-                        <button onClick={deleteBug} style={styles.deleteButton}>Delete bug</button>
+                    <div style={isMobile ? styles.mobileButtonsFrame : styles.buttonsFrame}>
+                        <button onClick={updateBug} style={styles.updateButton}>Update issue</button>
+                        <button onClick={deleteBug} style={styles.deleteButton}>Delete issue</button>
                         <button onClick={navToHome} style={styles.cancelButton}>Cancel</button>
                     </div>
                 </div>
@@ -263,6 +280,13 @@ const styles = {
         flexDirection: "column"
     },
 
+    mobileMain: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "10px"
+    },
+
     main: {
         width: "100%",
         display: "flex",
@@ -270,8 +294,13 @@ const styles = {
         marginTop: "50px"
     },
 
+    mobileInnerMain: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column"
+    },
+
     innerMain: {
-        width: "40%",
         display: "flex",
         flexDirection: "column"
     },
@@ -281,7 +310,7 @@ const styles = {
         fontFamily: "Arial",
         color: Colors.four,
         fontWeight: "bold",
-        marginLeft: "10px"
+        marginLeft: "20px"
     },
 
     prompt: {
@@ -291,28 +320,53 @@ const styles = {
         marginTop: "10px",
         marginBottom: "0px",
         marginLeft: "0px",
-        marginLeft: "10px"
+        marginLeft: "20px"
     },
 
-    singleLineInputField: {
-        width: "100%",
+    mobileSingleLineInputField: {
+        width: "73%",
         height: '30px',
         backgroundColor: Colors.seven,
         borderWidth: '0',
         fontSize: '1.055rem',
         fontFamily: "Arial",
-        padding: '12px',
+        padding: '20px',
+        borderRadius: "5px",
+        marginTop: "15px",
+        marginLeft: "20px"
+    },
+
+    singleLineInputField: {
+        width: "85%",
+        height: '30px',
+        backgroundColor: Colors.seven,
+        borderWidth: '0',
+        fontSize: '1.055rem',
+        fontFamily: "Arial",
+        padding: '20px',
         borderRadius: "5px",
         marginTop: "15px"
     },
 
-    multilineInputField: {
-        width: "100%",
+    mobileMultilineInputField: {
+        width: "73%",
         borderWidth: '0',
         backgroundColor: Colors.seven,
         fontSize: '1.055rem',
         fontFamily: "Arial",
-        padding: "12px",
+        padding: "20px",
+        borderRadius: "5px",
+        marginTop: "20px",
+        marginLeft: "20px"
+    },
+
+    multilineInputField: {
+        width: "85%",
+        borderWidth: '0',
+        backgroundColor: Colors.seven,
+        fontSize: '1.055rem',
+        fontFamily: "Arial",
+        padding: "20px",
         borderRadius: "5px",
         marginTop: "20px"
     },
@@ -325,8 +379,17 @@ const styles = {
         marginBottom: "10px"
     },
 
+    mobileAddUpdateFrame: {
+        width: "80%",
+        marginLeft: "20px"
+    },
+
+    addUpdateFrame: {
+        width: "100%"
+    },
+
     updateTopBar: {
-        width: "100%",
+        width: "90%",
         display: "flex",
         alignItems: "center"
     },
@@ -347,6 +410,15 @@ const styles = {
         cursor: "pointer"
     },
 
+    mobileButtonsFrame: {
+        display: "flex",
+        alignItems: "center",
+        marginTop: "45px",
+        marginBottom: "100px",
+        marginLeft: "20px",
+        marginRight: "20px"
+    },
+
     buttonsFrame: {
         width: "80%",
         display: "flex",
@@ -356,7 +428,7 @@ const styles = {
     },
 
     updateButton: {
-        width: "7.5rem",
+        width: "10rem",
         height: "2.5rem",
         marginRight: "20px",
         marginLeft: "10px",
@@ -370,7 +442,7 @@ const styles = {
     },
 
     deleteButton: {
-        width: "7.5rem",
+        width: "10rem",
         height: "2.5rem",
         marginRight: "20px",
         backgroundColor: Colors.nine,

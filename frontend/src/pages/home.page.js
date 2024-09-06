@@ -100,6 +100,12 @@ export default function HomePage() {
     });
   }
 
+  function openApp() {
+    if (currentProject.link) {
+      window.open(currentProject.link, "_blank");
+    }
+  }
+
   return (
     <div style={styles.root}>
       <NavBar 
@@ -107,10 +113,18 @@ export default function HomePage() {
         action={navAction}
       />
       <div style={isMobile ? styles.mobileMain : styles.main}>
-        <div style={styles.liveLinkFrame}>
+        <div style={styles.infoFrame}>
           <p style={styles.projectName}>{
             currentProject.uniqueName
           }</p>
+        </div>
+        <div style={styles.infoFrame}>
+          <button 
+            style={styles.openAppButton}
+            onClick={openApp}
+          >
+            Open app
+          </button>
         </div>
         <div style={styles.dividerWrapper}>
           <div style={styles.divider}/>
@@ -195,17 +209,30 @@ const styles = {
     alignItems: "center"
   },
 
-  liveLinkFrame: {
+  infoFrame: {
     width: "100%",
-    display: "flex",
-    flexDirection: "column"
+    display: "flex"
   },
 
   projectName: {
     fontSize: "1.4rem",
     fontFamily: "Arial",
-    marginLeft: "12px",
+    fontWeight: "bold",
+    marginLeft: "20px",
     marginTop: "0px"
+  },
+
+  openAppButton: {
+    marginLeft: "20px",
+    width: "6.5rem",
+    height: "2rem",
+    backgroundColor: Colors.six,
+    borderWidth: "0",
+    borderRadius: "5px",
+    color: Colors.five,
+    fontSize: "0.9rem",
+    marginRight: "20px",
+    cursor: "pointer"
   },
 
   dividerWrapper: {
@@ -241,17 +268,16 @@ const styles = {
   searchIcon: {
     fontSize: "1.9rem",
     color: Colors.two,
-    marginLeft: "12px",
+    marginLeft: "20px",
     marginRight: "0.3125rem"
   },
 
   mobileSearchField: {
-    borderTopWidth: "0px",
-    borderLeftWidth: "0px",
-    borderRightWidth: "0px",
-    borderBottomWidth: "2px",
-    borderColor: Colors.three,
-    width: "82%",
+    borderRadius: "0.3125rem",
+    backgroundColor: Colors.seven,
+    border: "0px",
+    width: "70%",
+    padding: "0.4375rem",
     fontSize: '1.1rem'
   },
 
@@ -268,7 +294,7 @@ const styles = {
     width: "100%",
     display: "flex",
     alignItems: "center",
-    paddingLeft: "12px"
+    paddingLeft: "20px"
   },
 
   sortFrame: {
@@ -306,7 +332,7 @@ const styles = {
     width: "4rem",
     height: "2px",
     backgroundColor: Colors.six,
-    marginLeft: "12px",
+    marginLeft: "20px",
     marginTop: "30px"
   },
 
@@ -320,8 +346,8 @@ const styles = {
     height: "2.3875rem",
     border: "0",
     borderRadius: "5px",
-    backgroundColor: Colors.four,
-    marginLeft: "12px",
+    backgroundColor: Colors.two,
+    marginLeft: "20px",
     marginTop: "1.125rem",
     fontSize: "1rem",
     color: Colors.five,

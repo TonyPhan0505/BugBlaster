@@ -20,7 +20,7 @@ const styles = {
     row: {
         display: "flex",
         alignItems: "center",
-        margin: "10px 10px"
+        margin: "10px 20px"
       },
     
     prompt: {

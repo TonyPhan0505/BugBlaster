@@ -13,6 +13,8 @@ import CreateBugPage from "./pages/CreateBug.page";
 import ManageBugPage from "./pages/ManageBug.page";
 
 import { store, persistor } from './redux/store';
+
+import "./styles/main.css";
 //////////////////////////////////////////////////////////////////////////
 
 /////////////////////////// Component ///////////////////////////

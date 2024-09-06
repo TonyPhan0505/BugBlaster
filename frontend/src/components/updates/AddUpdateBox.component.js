@@ -63,7 +63,7 @@ export default function AddUpdateBox({
         style={styles.multilineInputField}
       />
       <div style={styles.buttonsFrame}>
-        <button onClick={createFix} style={styles.createButton}>Create</button>
+        <button onClick={createFix} style={styles.createButton}>Add</button>
         <button onClick={cancel} style={styles.cancelButton}>Cancel</button>
       </div>
     </div>
@@ -74,7 +74,7 @@ export default function AddUpdateBox({
 ////////////////// Styles //////////////////
 const styles = {
   root: {
-    width: "40%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     paddingLeft: "10px",
