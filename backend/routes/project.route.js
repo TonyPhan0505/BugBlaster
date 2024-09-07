@@ -11,6 +11,9 @@ router.route('/login')
 
 router.route('/sign_up')
 .post(projectController.signUp);
+
+router.route('/verify_access_token')
+.post(projectController.verifyAccessToken);
 /////////////////////////////////////////////////////////////
 
 ///////// Exports /////////

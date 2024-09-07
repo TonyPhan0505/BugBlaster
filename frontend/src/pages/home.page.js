@@ -9,11 +9,17 @@ import BugCard from "../components/home/BugCard.component";
 import Loader from '../components/shared/Loader.component';
 
 import Colors from "../utils/Colors.utils";
+import { showErrorAlert } from "../utils/Alerts.utils";
 ////////////////////////////////////////////////////////
 
 ////////////////// Component //////////////////
 export default function HomePage() {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const isLoggedIn = useSelector(state => state.project.isLoggedIn);
   const currentProject = useSelector(state => state.project.currentProject);
+  const hasVerifiedAccessToken = useSelector(state => state.project.hasVerifiedAccessToken);
+  const validAccessToken = useSelector(state => state.project.validAccessToken);
   const bugs = useSelector(state => state.bug.bugs);
   const hasFetchedBulk = useSelector(state => state.bug.hasFetchedBulk);
 
@@ -26,10 +32,36 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      navigate("/");
+    if (!accessToken || isLoggedIn !== 1) {
+      logOut();
+    } else {
+      dispatch({
+        type: "project/verify_access_token",
+        payload: accessToken
+      });
     }
   }, []);
+
+  useEffect(() => {
+    if (hasVerifiedAccessToken === 1) {
+      dispatch({
+        type: "project/reset_verify_access_token"
+      });
+      if (!validAccessToken) {
+        logOut();
+      } else {
+        dispatch({
+          type: "bug/fetch_bulk",
+          payload: currentProject.uniqueName
+        });
+      }
+    } else if (hasVerifiedAccessToken === 0) {
+      dispatch({
+        type: "project/reset_verify_access_token"
+      });
+      showErrorAlert("ERROR: Failed to verify access token.");
+    }
+  }, [hasVerifiedAccessToken]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,13 +71,6 @@ export default function HomePage() {
     return () => {
         window.removeEventListener('resize', handleResize);
     };
-  }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: "bug/fetch_bulk",
-      payload: currentProject.uniqueName
-    });
   }, []);
 
   useEffect(() => {
@@ -77,7 +102,7 @@ export default function HomePage() {
     navigate("/create_bug");
   }
 
-  function navAction() {
+  function logOut() {
     dispatch({
       type: "project/logout"
     });
@@ -110,21 +135,23 @@ export default function HomePage() {
     <div style={styles.root}>
       <NavBar 
         actionText="Log out"
-        action={navAction}
+        action={logOut}
       />
       <div style={isMobile ? styles.mobileMain : styles.main}>
         <div style={styles.infoFrame}>
           <p style={styles.projectName}>{
             currentProject.uniqueName
           }</p>
-        </div>
-        <div style={styles.infoFrame}>
           <button 
             style={styles.openAppButton}
             onClick={openApp}
           >
             Open app
           </button>
+          <button 
+            onClick={navToAddBugPage} 
+            style={styles.addBugButton}
+          >Add issue</button>
         </div>
         <div style={styles.dividerWrapper}>
           <div style={styles.divider}/>
@@ -158,12 +185,6 @@ export default function HomePage() {
           </div>
         </div>
         {isMobile && (<div style={styles.divider}/>)}
-        <div style={styles.addBugButtonWrapper}>
-          <button 
-            onClick={navToAddBugPage} 
-            style={styles.addBugButton}
-          >Add new issue</button>
-        </div>
         <div style={isMobile ? styles.mobileBugsFrame : styles.bugsFrame}>
           {
             loading ?
@@ -225,13 +246,13 @@ const styles = {
   openAppButton: {
     marginLeft: "20px",
     width: "6.5rem",
-    height: "2rem",
+    height: "2.3875rem",
     backgroundColor: Colors.six,
     borderWidth: "0",
     borderRadius: "5px",
     color: Colors.five,
     fontSize: "0.9rem",
-    marginRight: "20px",
+    marginRight: "12px",
     cursor: "pointer"
   },
 
@@ -286,7 +307,7 @@ const styles = {
     backgroundColor: Colors.seven,
     border: "0px",
     width: "44%",
-    padding: "0.4375rem",
+    padding: "0.7rem 0.4375rem",
     fontSize: '1.1rem'
   },
 
@@ -336,19 +357,12 @@ const styles = {
     marginTop: "30px"
   },
 
-  addBugButtonWrapper: {
-    width: "100%",
-    display: "flex"
-  },
-
   addBugButton: {
-    width: "9rem",
+    width: "7rem",
     height: "2.3875rem",
     border: "0",
     borderRadius: "5px",
-    backgroundColor: Colors.two,
-    marginLeft: "20px",
-    marginTop: "1.125rem",
+    backgroundColor: Colors.three,
     fontSize: "1rem",
     color: Colors.five,
     cursor: "pointer"

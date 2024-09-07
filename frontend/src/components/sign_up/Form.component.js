@@ -43,7 +43,7 @@ export default function Form() {
   useEffect(() => {
     if (isSignedUp === 1) {
       dispatch({
-          type: "project/reset_sign_up"
+        type: "project/reset_sign_up"
       });
       setSigningUp(false);
       showSuccessAlert("Successfully signed up.");

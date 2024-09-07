@@ -1,7 +1,8 @@
 /////////////// Import dependencies ////////////////
 import {
     login,
-    signUp
+    signUp,
+    verifyAccessToken
 } from "../../apis/project.api";
 
 import {
@@ -14,7 +15,9 @@ import {
     resetLoginReducer,
     signUpReducer,
     resetSignUpReducer,
-    logOutReducer
+    logOutReducer,
+    verifyAccessTokenReducer,
+    resetVerifyAccessTokenReducer
 } from "../slices/project.slice";
 ///////////////////////////////////////////////////
 
@@ -96,6 +99,28 @@ function* logOutSaga() {
     localStorage.removeItem("accessToken");
     yield put(logOutReducer());
 }
+
+function* verifyAccessTokenSaga(action) {
+    const accessToken = action.payload;
+    const res = yield verifyAccessToken(accessToken);
+    if (res && res.data.success) {
+        yield put(verifyAccessTokenReducer({
+            status: 1,
+            valid: res.data.valid
+        }));
+        console.log("SUCCESS: Successfully verified access token.");
+    } else {
+        yield put(verifyAccessTokenReducer({
+            status: 0,
+            valid: undefined
+        }));
+        console.error("ERROR: Failed to verify access token.");
+    }
+}
+
+function* resetVerifyAccessTokenSaga() {
+    yield put(resetVerifyAccessTokenReducer());
+}
 //////////////////////////////////////////
 
 /////////////// Listeners ////////////////
@@ -117,5 +142,13 @@ export function* listenResetSignUp() {
 
 export function* listenLogOut() {
     yield takeEvery("project/logout", logOutSaga);
+}
+
+export function* listenVerifyAccessToken() {
+    yield takeEvery("project/verify_access_token", verifyAccessTokenSaga);
+}
+
+export function* listenResetVerifyAccessToken() {
+    yield takeEvery("project/reset_verify_access_token", resetVerifyAccessTokenSaga);
 }
 /////////////////////////////////////////

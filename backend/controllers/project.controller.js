@@ -87,4 +87,23 @@ exports.signUp = async (req, res) => {
         });
     }
 };
+
+exports.verifyAccessToken = (req, res) => {
+    const accessToken = req.body.accessToken;
+    jwt.verify(accessToken, process.env.LOGIN_SECRET_KEY, async (err) => {
+        if (err) {
+            return res.status(200).json({ 
+                success: true, 
+                valid: false,
+                message: `Invalid access token. ${err}.` 
+            });
+        } else {
+            return res.status(200).json({
+                success: true,
+                valid: true,
+                message: "Valid access token."
+            });
+        }
+    });
+};
 /////////////////////////////////////////////////////////////////////////

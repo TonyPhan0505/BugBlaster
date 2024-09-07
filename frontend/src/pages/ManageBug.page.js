@@ -19,18 +19,22 @@ import { showErrorAlert, showInstructionAlert } from "../utils/Alerts.utils";
 ////////////////// Component //////////////////
 export default function ManageBugPage() {
     const location = useLocation();
-    const bug = location.state.data;
-    const datetime = new Date(bug.datetime);
+    const bug = location.state && location.state.data;
+    const datetime = bug && new Date(bug.datetime);
+    const accessToken = localStorage.getItem("accessToken");
 
+    const isLoggedIn = useSelector(state => state.project.isLoggedIn);
+    const hasVerifiedAccessToken = useSelector(state => state.project.hasVerifiedAccessToken);
+    const validAccessToken = useSelector(state => state.project.validAccessToken);
     const updates = useSelector(state => state.update.updates);
     const hasFetchedBulk = useSelector(state => state.update.hasFetchedBulk);
     const hasDeletedUpdate = useSelector(state => state.update.hasDeleted);
     const hasUpdated = useSelector(state => state.bug.hasUpdated);
     const hasDeletedBug = useSelector(state => state.bug.hasDeleted);
 
-    const [ title, setTitle ] = useState(bug.title);
-    const [ detailedDescription, setDetailedDescription ] = useState(bug.detailedDescription);
-    const [ solution, setSolution ] = useState(bug.solution ? bug.solution : "");
+    const [ title, setTitle ] = useState(bug && bug.title);
+    const [ detailedDescription, setDetailedDescription ] = useState(bug && bug.detailedDescription);
+    const [ solution, setSolution ] = useState((bug && bug.solution) ? bug.solution : "");
     const [ loading, setLoading ] = useState(true);
     const [ addUpdateBoxOpened, setAddUpdateBoxOpened ] = useState(false);
     const [ fixLocation, setFixLocation ] = useState("");
@@ -51,15 +55,36 @@ export default function ManageBugPage() {
     }, []);
 
     useEffect(() => {
-        if (!localStorage.getItem("accessToken")) {
-            navigate("/");
+        if (!accessToken || isLoggedIn !== 1) {
+          logOut();
         } else {
+          dispatch({
+            type: "project/verify_access_token",
+            payload: accessToken
+          });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (hasVerifiedAccessToken === 1) {
+          dispatch({
+            type: "project/reset_verify_access_token"
+          });
+          if (!validAccessToken) {
+            logOut();
+          } else {
             dispatch({
                 type: "update/fetch_bulk",
                 payload: bug.id
             });
+          }
+        } else if (hasVerifiedAccessToken === 0) {
+          dispatch({
+            type: "project/reset_verify_access_token"
+          });
+          showErrorAlert("ERROR: Failed to verify access token.");
         }
-    }, []);
+    }, [hasVerifiedAccessToken]);
 
     useEffect(() => {
         if (hasDeletedUpdate === 1) {
@@ -121,7 +146,7 @@ export default function ManageBugPage() {
         }
     }, [hasDeletedBug]);
 
-    function navAction() {
+    function logOut() {
         dispatch({
           type: "project/logout"
         });
@@ -180,18 +205,18 @@ export default function ManageBugPage() {
         <div style={styles.root}>
             <NavBar
                 actionText="Log out"
-                action={navAction}
+                action={logOut}
             />
             <div style={isMobile ? styles.mobileMain : styles.main}>
                 <div style={isMobile ? styles.mobileInnerMain : styles.innerMain}>
-                    <p style={styles.id}>Issue: #{bug.id}</p>
+                    <p style={styles.id}>Issue: #{bug && bug.id}</p>
                     <LargeDataRow 
                         prompt="Status"
-                        data={bug.fixed ? "Fixed" : "Unfixed"}
+                        data={(bug && bug.fixed) ? "Fixed" : "Unfixed"}
                     />
                     <LargeDataRow 
                         prompt="Created on"
-                        data={`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}
+                        data={datetime && `${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}
                     />
                     <p style={styles.prompt}>Title:</p>
                     <input 

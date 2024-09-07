@@ -41,9 +41,6 @@ export default function Form() {
 
     useEffect(() => {
         if (isLoggedIn === 1) {
-            dispatch({
-                type: "project/reset_login"
-            });
             setLoggingIn(false);
             showSuccessAlert("Successfully logged in.");
             navigate("/home");

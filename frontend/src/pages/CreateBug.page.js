@@ -13,7 +13,12 @@ import { showInstructionAlert, showErrorAlert } from "../utils/Alerts.utils";
 
 ////////////////// Component //////////////////
 export default function CreateBugPage() {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const isLoggedIn = useSelector(state => state.project.isLoggedIn);
   const currentProject = useSelector(state => state.project.currentProject);
+  const hasVerifiedAccessToken = useSelector(state => state.project.hasVerifiedAccessToken);
+  const validAccessToken = useSelector(state => state.project.validAccessToken);
   const hasCreated = useSelector(state => state.bug.hasCreated);
 
   const [ id, _ ] = useState(IdGenerator());
@@ -35,10 +40,31 @@ export default function CreateBugPage() {
   }, []);
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      navigate("/");
+    if (!accessToken || isLoggedIn !== 1) {
+      logOut();
+    } else {
+      dispatch({
+        type: "project/verify_access_token",
+        payload: accessToken
+      });
     }
   }, []);
+
+  useEffect(() => {
+    if (hasVerifiedAccessToken === 1) {
+      dispatch({
+        type: "project/reset_verify_access_token"
+      });
+      if (!validAccessToken) {
+        logOut();
+      }
+    } else if (hasVerifiedAccessToken === 0) {
+      dispatch({
+        type: "project/reset_verify_access_token"
+      });
+      showErrorAlert("ERROR: Failed to verify access token.");
+    }
+  }, [hasVerifiedAccessToken]);
 
   useEffect(() => {
     if (hasCreated === 1) {
@@ -79,7 +105,7 @@ export default function CreateBugPage() {
     navigate("/home");
   }
 
-  function navAction() {
+  function logOut() {
     dispatch({
       type: "project/logout"
     });
@@ -90,10 +116,10 @@ export default function CreateBugPage() {
     <div style={styles.root}>
       <NavBar 
         actionText="Log out"
-        action={navAction}
+        action={logOut}
       />
       <div style={isMobile ? styles.mobileMain : styles.main}>
-        <p style={styles.id}>Issue Id: #{id}</p>
+        <p style={styles.id}>Issue ID: #{id}</p>
         <input 
           type="text"
           style={styles.singleLineInputField}

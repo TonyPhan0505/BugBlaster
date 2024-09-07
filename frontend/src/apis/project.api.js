@@ -48,4 +48,15 @@ export const signUp = async (
     );
     return response;
 };
+
+export const verifyAccessToken = async (accessToken) => {
+    const response = await axios.post(`${backendURL}/project/verify_access_token`, {
+        accessToken: accessToken
+    }).then(
+        res => { return res; }
+    ).catch(
+        err => { console.error(err); }
+    );
+    return response;
+};
 /////////////////////////////////////////////////

@@ -6,7 +6,9 @@ import {
     listenResetLogin,
     listenSignUp,
     listenResetSignUp,
-    listenLogOut
+    listenLogOut,
+    listenVerifyAccessToken,
+    listenResetVerifyAccessToken
 } from "./project.saga";
 
 import {
@@ -40,6 +42,8 @@ export default function* rootSaga() {
         listenSignUp(),
         listenResetSignUp(),
         listenLogOut(),
+        listenVerifyAccessToken(),
+        listenResetVerifyAccessToken(),
 
         listenFetchBulkBugs(),
         listenResetFetchBulkBugs(),
