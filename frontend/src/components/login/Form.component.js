@@ -64,16 +64,16 @@ export default function Form() {
     }
 
     function showForgotPasswordInstruction() {
-        showInstructionAlert("Please contact the development team using your registered email address.");
+        showInstructionAlert("Please contact the development team using your project's registered email address.");
     }
 
     return (
         <div style={isMobile ? styles.rootMobile : styles.root}>
-            <label style={styles.label}>Email:</label>
+            <label style={styles.label}>Project name:</label>
             <input 
                 type="text" 
                 style={styles.input} 
-                placeholder="Enter your project name:" 
+                placeholder="Enter your project name" 
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
             />
@@ -117,27 +117,31 @@ export default function Form() {
 ////////////////// Styles //////////////////
 const styles = {
   root: {
-      width: "25%", 
-      margin: 'auto', 
-      paddingTop: '20px', 
-      fontSize: "1.125rem",
-      marginTop: "100px"
+    width: "25%", 
+    margin: 'auto', 
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: '20px', 
+    fontSize: "1.125rem",
+    marginTop: "100px"
   },
   rootMobile: {
     width: "84%", 
     margin: 'auto', 
+    display: "flex",
+    flexDirection: "column",
     paddingTop: '20px', 
     fontSize: "1.125rem",
     marginTop: "100px"
   },
   label: {
-      display: 'block',
-      marginBottom: '5px',
-      fontFamily: "Arial",
-      marginTop: "20px"
+    display: 'block',
+    marginBottom: '5px',
+    fontFamily: "Arial",
+    marginTop: "20px"
   },
   input: {
-    width: '100%',
+    width: '95%',
     height: "1.7rem",
     padding: '8px',
     marginBottom: '10px',
