@@ -2,7 +2,7 @@
 This is a web app for software development teams to track the progress of fixing bugs in their software and continuously get client feedback throughout the development process.
 
 # Demo:
-https://youtu.be/HseXtvzF850?si=PhiS-a1SuVGNQ85E
+https://www.youtube.com/watch?v=1NZkYH_4QL0
 
 # Screenshots:
 ### Login and Sign up:

@@ -82,7 +82,7 @@ export default function CreateBugPage() {
 
   function createBugHandler() {
     if (title.length >= 5 && detailedDescription.length >= 5) {
-      if (title.length <= 30) {
+      if (title.length <= 40) {
         dispatch({
           type: "bug/create",
           payload: {
@@ -94,7 +94,7 @@ export default function CreateBugPage() {
           }
         });
       } else {
-        showInstructionAlert("Title must be no longer than 30 characters.");
+        showInstructionAlert("Title must be no longer than 40 characters.");
       }
     } else {
       showInstructionAlert("Title and description must be at least 5 characters long.");
@@ -126,7 +126,7 @@ export default function CreateBugPage() {
           placeholder="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          maxLength={23}
+          maxLength={40}
         />
         <textarea
           value={detailedDescription}
