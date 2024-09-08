@@ -1,5 +1,7 @@
 ///////////////////////////// Import dependencies ///////////////////////////////
 const Bug = require('../models/bug.model');
+
+const sendEmail = require("../services/SendEmail.service");
 ////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////// Callbacks //////////////////////////////
@@ -34,6 +36,11 @@ exports.create = (req, res) => {
     });
     newBug.save().then(
         (bug) => {
+            sendEmail(
+                process.env.EMAIL,
+                `${bug.projectName} - ${bug.title}`,
+                bug.detailedDescription
+            );
             return res.status(200).json({ 
                 success: true, 
                 bug: bug, 
