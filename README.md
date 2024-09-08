@@ -6,27 +6,18 @@ https://www.youtube.com/watch?v=1NZkYH_4QL0
 
 # Screenshots:
 ### Login and Sign up:
-![login](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/7031b740-77c1-4f77-93a6-cced0e9416c7)
-![sign_up](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/99d0342e-ad4a-422c-a4d7-80ee2141dbea)
+![login](https://github.com/user-attachments/assets/7d3e8eea-2a4c-4a59-9924-8efbb7145f03)
+![signup](https://github.com/user-attachments/assets/6a7524c9-6d0f-433a-9c3c-1d12c24e6dd8)
 
-### Create a new bug:
-![create_bug](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/f14ade55-30f1-4b86-8cec-839c07c9fd5f)
+### Create a new issue:
+![create](https://github.com/user-attachments/assets/8c16edda-0870-4062-9d61-cae1402eba06)
 
-### See filtered bugs and search for bugs by ID, description, assignees:
-![bugs](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/ce9eb8a1-1bd6-4932-af7b-6b72166a807e)
+### See resolved and unresolved issue, and search for issues by ID, title and description:
+![dashboard](https://github.com/user-attachments/assets/bcc953cd-5653-4aaf-94d9-7b08229d0684)
 
-### Edit and delete a bug:
-![edit_delete_bug](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/72b44bfe-f38d-4dac-afe6-c0c474ea74d9)
+### Edit and delete an issue:
+![manage](https://github.com/user-attachments/assets/11666673-55c4-4d21-93c3-711220b3bf4b)
 
-### Add a new fix/update to a bug:
-![create_update](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/dcb4c603-9a45-4a3c-8d0b-416d2a99fe99)
-
-### See most to least recent fixes of a bug:
-![see_updates](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/37271a45-695e-444f-a211-ad1bd8936aae)
-
-
-### Edit and delete a fix or an update:
-![edit_and_delete_update](https://github.com/TonyPhan0505/BugBlaster/assets/87828913/090bf53a-1076-4644-947b-8fcff52cafee)
 
 # Running the web app
 1. cd into the "backend" directory.
