@@ -286,8 +286,8 @@ export default function ManageBugPage() {
                         style={isMobile ? styles.mobileMultilineInputField : styles.multilineInputField}
                     />
                     <div style={isMobile ? styles.mobileButtonsFrame : styles.buttonsFrame}>
-                        <button onClick={updateBug} style={styles.updateButton}>Update issue</button>
-                        <button onClick={deleteBug} style={styles.deleteButton}>Delete issue</button>
+                        <button onClick={updateBug} style={styles.updateButton}>Update</button>
+                        <button onClick={deleteBug} style={styles.deleteButton}>Delete</button>
                         <button onClick={navToHome} style={styles.cancelButton}>Cancel</button>
                     </div>
                 </div>
@@ -456,7 +456,6 @@ const styles = {
         width: "10rem",
         height: "2.5rem",
         marginRight: "20px",
-        marginLeft: "10px",
         backgroundColor: Colors.two,
         borderWidth: "0",
         borderRadius: '5px',
