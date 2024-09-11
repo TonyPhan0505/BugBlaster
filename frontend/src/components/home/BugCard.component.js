@@ -105,7 +105,7 @@ const styles = {
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "91%",
+    width: "87%",
     borderRadius: "7px",
     backgroundColor: Colors.seven,
     marginTop: "25px",
