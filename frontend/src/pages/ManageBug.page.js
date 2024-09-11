@@ -479,7 +479,7 @@ const styles = {
     },
     
     cancelButton: {
-        width: "7.5rem",
+        width: "7.7rem",
         height: "2.5rem",
         marginRight: "20px",
         backgroundColor: Colors.five,

@@ -1,5 +1,5 @@
 ////////////////// Import dependencies //////////////////
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdDelete } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +16,21 @@ export default function BugCard({ bug }) {
   
   const hasDeleted = useSelector(state => state.bug.hasDeleted);
   const currentProject = useSelector(state => state.project.currentProject);
+
+  const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768);
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (hasDeleted === 1) {
@@ -66,7 +78,7 @@ export default function BugCard({ bug }) {
 
   return (
     <div 
-      style={styles.root}
+      style={isMobile ? styles.mobileRoot : styles.root}
     >
       <div style={styles.topBar}>
         <div 
@@ -103,6 +115,16 @@ export default function BugCard({ bug }) {
 ////////////////// Styles //////////////////
 const styles = {
   root: {
+    display: "flex",
+    flexDirection: "column",
+    width: "50%",
+    borderRadius: "7px",
+    backgroundColor: Colors.seven,
+    marginTop: "25px",
+    marginLeft: "20px"
+  },
+
+  mobileRoot: {
     display: "flex",
     flexDirection: "column",
     width: "87%",
