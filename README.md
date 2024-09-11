@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=1NZkYH_4QL0
 ### Create a new issue:
 ![create](https://github.com/user-attachments/assets/8c16edda-0870-4062-9d61-cae1402eba06)
 
-### See resolved and unresolved issue, and search for issues by ID, title and description:
+### See resolved and unresolved issues, and search by ID, title and description:
 ![dashboard](https://github.com/user-attachments/assets/bcc953cd-5653-4aaf-94d9-7b08229d0684)
 
 ### Edit and delete an issue:
