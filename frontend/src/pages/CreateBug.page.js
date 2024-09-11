@@ -209,7 +209,7 @@ const styles = {
 
   createButton: {
     width: "45%",
-    height: `${window.innerHeight * 0.055}px`,
+    height: "2.5rem",
     marginRight: "20px",
     backgroundColor: Colors.three,
     borderWidth: "0",
@@ -222,7 +222,7 @@ const styles = {
 
   cancelButton: {
     width: "45%",
-    height: `${window.innerHeight * 0.055}px`,
+    height: "2.5rem",
     marginRight: "20px",
     backgroundColor: Colors.five,
     border: `2px solid ${Colors.two}`,
