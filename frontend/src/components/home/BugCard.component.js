@@ -105,11 +105,10 @@ const styles = {
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
+    width: "91%",
     borderRadius: "7px",
     backgroundColor: Colors.seven,
     marginTop: "25px",
-    padding: "10px 20px",
     marginLeft: "20px"
   },
 
@@ -144,11 +143,12 @@ const styles = {
     fontSize: "1.325rem",
     fontFamily: "Arial",
     color: Colors.four,
-    margin: "20px 10px"
+    margin: "20px 20px"
   },
 
   dataWrapper: {
-    cursor: "pointer"
+    cursor: "pointer",
+    marginLeft: "10px"
   }
 };
 ///////////////////////////////////////////

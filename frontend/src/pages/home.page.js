@@ -137,71 +137,81 @@ export default function HomePage() {
         actionText="Log out"
         action={logOut}
       />
-      <div style={isMobile ? styles.mobileMain : styles.main}>
-        <div style={styles.infoFrame}>
-          <p style={styles.projectName}>{
-            currentProject.uniqueName
-          }</p>
-          <button 
-            style={styles.openAppButton}
-            onClick={openApp}
-          >
-            Open app
-          </button>
-          <button 
-            onClick={navToAddBugPage} 
-            style={styles.addBugButton}
-          >Add issue</button>
+      <div style={styles.infoFrame}>
+        <p style={styles.projectName}>{
+          currentProject.uniqueName
+        }</p>
+        {!isMobile && (<button 
+          style={styles.openAppButton}
+          onClick={openApp}
+        >
+          Open app
+        </button>)}
+        {!isMobile && (<button 
+          onClick={navToAddBugPage} 
+          style={styles.addBugButton}
+        >Add issue</button>)}
+      </div>
+      {isMobile && (<div style={styles.buttonsFrame}>
+        <button 
+          style={styles.openAppButton}
+          onClick={openApp}
+        >
+          Open app
+        </button>
+        <button 
+          onClick={navToAddBugPage} 
+          style={styles.addBugButton}
+        >Add issue</button>
+      </div>)}
+      <div style={styles.dividerWrapper}>
+        <div style={styles.divider}/>
+      </div>
+      <div style={isMobile ? styles.mobileSearchSortFrame : styles.searchSortFrame}>
+        <div style={isMobile ? styles.mobileSearchFrame : styles.searchFrame}>
+          <MdOutlineScreenSearchDesktop style={styles.searchIcon}/>
+          <input 
+            type="text"
+            style={isMobile ? styles.mobileSearchField : styles.searchField}
+            placeholder="search by id, title, description"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
         </div>
-        <div style={styles.dividerWrapper}>
-          <div style={styles.divider}/>
-        </div>
-        <div style={isMobile ? styles.mobileSearchSortFrame : styles.searchSortFrame}>
-          <div style={isMobile ? styles.mobileSearchFrame : styles.searchFrame}>
-            <MdOutlineScreenSearchDesktop style={styles.searchIcon}/>
-            <input 
-              type="text"
-              style={isMobile ? styles.mobileSearchField : styles.searchField}
-              placeholder="search by id, title, description"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>
-          <div style={isMobile ? styles.mobileSortFrame : styles.sortFrame}>
-            <button 
-              onClick={() => setFilterOption("Fixed")} 
-              style={ 
-                filterOption === "Fixed" 
-                  ? styles.chosenOptionButton 
+        <div style={isMobile ? styles.mobileSortFrame : styles.sortFrame}>
+          <button 
+            onClick={() => setFilterOption("Fixed")} 
+            style={ 
+              filterOption === "Fixed" 
+                ? styles.chosenOptionButton 
+              : styles.optionButton 
+              }>Fixed</button>
+          <button 
+            onClick={() => setFilterOption("Unfixed")} 
+            style={ 
+              filterOption === "Unfixed" 
+                ? styles.chosenOptionButton 
                 : styles.optionButton 
-                }>Fixed</button>
-            <button 
-              onClick={() => setFilterOption("Unfixed")} 
-              style={ 
-                filterOption === "Unfixed" 
-                  ? styles.chosenOptionButton 
-                  : styles.optionButton 
-              }>Unfixed</button>
-          </div>
-        </div>
-        {isMobile && (<div style={styles.divider}/>)}
-        <div style={isMobile ? styles.mobileBugsFrame : styles.bugsFrame}>
-          {
-            loading ?
-              <Loader loading={loading}/>
-            : 
-              <>
-                {
-                  getBugs().map((bug) => {
-                    return (
-                      <BugCard key={bug.id} bug={bug}/>
-                    )
-                  })
-                }
-              </>
-          }
+            }>Unfixed</button>
         </div>
       </div>
+      {isMobile && (<div style={styles.divider}/>)}
+      <>
+        {
+          loading ?
+            <Loader loading={loading}/>
+          : 
+            <>
+              {
+                getBugs().map((bug) => {
+                  return (
+                    <BugCard key={bug.id} bug={bug}/>
+                  )
+                })
+              }
+            </>
+        }
+      </>
     </div>
   )
 }
@@ -212,31 +222,23 @@ const styles = {
   root: {
     width: "100%",
     display: "flex",
-    flexDirection: "column"
-  },
-
-  mobileMain: {
-    width: "100%",
-    display: "flex",
     flexDirection: "column",
-    marginTop: "30px"
-  },
-
-  main: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "30px",
-    alignItems: "center"
+    paddingBottom: "30px"
   },
 
   infoFrame: {
     width: "100%",
-    display: "flex"
+    display: "flex",
+    marginTop: "30px"
+  },
+
+  buttonsFrame: {
+    display: "flex",
+    alignItems: "center"
   },
 
   projectName: {
-    fontSize: "1.4rem",
+    fontSize: "1.2rem",
     fontFamily: "Arial",
     fontWeight: "bold",
     marginLeft: "20px",
@@ -363,24 +365,9 @@ const styles = {
     border: "0",
     borderRadius: "5px",
     backgroundColor: Colors.three,
-    fontSize: "1rem",
+    fontSize: "0.9rem",
     color: Colors.five,
     cursor: "pointer"
-  },
-
-  mobileBugsFrame: {
-    width: "80%",
-    marginTop: "10px",
-    display: "flex",
-    flexDirection: "column"
-  },
-
-  bugsFrame: {
-    width: "48%",
-    marginTop: "10px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
   }
 };
 ///////////////////////////////////////////

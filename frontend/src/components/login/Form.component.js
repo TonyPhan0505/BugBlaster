@@ -92,9 +92,9 @@ export default function Form() {
                     onClick={() => setPasswordHidden(!passwordHidden)}
                 >
                     {passwordHidden ? (<IoEye 
-                        size={window.innerWidth * 0.017}
+                        style={isMobile ? styles.mobileEye : styles.eye}
                     />) : (<IoEyeOff 
-                        size={window.innerWidth * 0.017}
+                        style={isMobile ? styles.mobileEye : styles.eye}
                     />)}
                 </div>
             </div>
@@ -126,19 +126,18 @@ const styles = {
     marginTop: "100px"
   },
   rootMobile: {
-    width: "84%", 
-    margin: 'auto', 
+    width: "88%", 
     display: "flex",
     flexDirection: "column",
     paddingTop: '20px', 
-    fontSize: "1.125rem",
-    marginTop: "100px"
+    fontSize: "1.125rem"
   },
   label: {
     display: 'block',
     marginBottom: '5px',
     fontFamily: "Arial",
-    marginTop: "20px"
+    marginTop: "20px",
+    marginLeft: "20px"
   },
   input: {
     width: '95%',
@@ -148,6 +147,7 @@ const styles = {
     borderRadius: "0.3rem",
     borderWidth: "0",
     marginTop: "20px",
+    marginLeft: "20px",
     fontSize: "1rem",
     backgroundColor: Colors.seven
   },
@@ -160,21 +160,28 @@ const styles = {
     marginBottom: '10px'
   },
   passwordInput: {
-    width: '90%',
+    width: '85%',
     height: "100%",
     padding: '8px',
     borderRadius: "0.3rem",
     borderWidth: "0",
     fontSize: "1rem",
-    backgroundColor: Colors.seven
+    backgroundColor: Colors.seven,
+    marginLeft: "20px"
   },
   hideButton: {
-    width: "10%",
+    width: "15%",
     height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     cursor: "pointer"
+  },
+  eye: {
+    fontSize: window.innerWidth * 0.014
+  },
+  mobileEye: {
+    fontSize: window.innerWidth * 0.07
   },
   forgotPassword: {
     textDecoration: 'underline',
@@ -182,7 +189,8 @@ const styles = {
     fontSize: "0.92rem",
     marginTop: "30px",
     marginBottom: "15px",
-    cursor: "pointer"
+    cursor: "pointer",
+    marginLeft: "20px"
   },
   button: {
     width: "4.8rem",
@@ -195,7 +203,8 @@ const styles = {
     fontFamily: "Arial",
     cursor: 'pointer',
     fontSize: '0.85rem',
-    marginTop: "20px"
+    marginTop: "20px",
+    marginLeft: "20px"
   },
 };
 ///////////////////////////////////////////

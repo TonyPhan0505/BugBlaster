@@ -8,8 +8,8 @@ import Colors from "../../utils/Colors.utils";
 export default function DataRow({ prompt, data }) {
   return (
     <div style={styles.row}>
-        <p style={styles.prompt}>{prompt}:</p>
-        <p style={styles.data}>{data}</p>
+      <p style={styles.prompt}>{prompt}:</p>
+      <p style={styles.data}>{data}</p>
     </div>
   )
 }
@@ -17,27 +17,27 @@ export default function DataRow({ prompt, data }) {
 
 ////////////////// Styles //////////////////
 const styles = {
-    row: {
-        display: "flex",
-        alignItems: "center",
-        margin: "10px 10px"
-      },
-    
-      prompt: {
-        fontSize: "1rem",
-        fontFamily: "Arial",
-        color: Colors.six,
-        marginTop: "0px",
-        marginBottom: "0px",
-        marginLeft: "0px",
-        marginRight: "5px"
-      },
-    
-      data: {
-        fontSize: "1rem",
-        fontFamily: "Arial",
-        color: Colors.six,
-        margin: "0px"
-      }
+  row: {
+    display: "flex",
+    alignItems: "center",
+    margin: "10px 10px"
+  },
+
+  prompt: {
+    fontSize: "1rem",
+    fontFamily: "Arial",
+    color: Colors.six,
+    marginTop: "0px",
+    marginBottom: "0px",
+    marginLeft: "0px",
+    marginRight: "5px"
+  },
+
+  data: {
+    fontSize: "1rem",
+    fontFamily: "Arial",
+    color: Colors.six,
+    margin: "0px"
+  }
 };
 ///////////////////////////////////////////

@@ -40,7 +40,6 @@ export default function LoginPage() {
 const styles = {
   main: {
     width: "100%",
-    height: window.innerHeight - 200,
     backgroundColor: Colors.five
   }
 };
