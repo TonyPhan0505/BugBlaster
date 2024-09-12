@@ -4,6 +4,13 @@ This is a web app for software development teams to track the progress of fixing
 # Live link:
 https://bugblaster.netlify.app
 
+# Features:
+- Secure authentication.
+- Client can find the link to their continuously deployed app in the same place as where they can raise issues to the developers.
+- An email is sent to the development team for each issue reported. This makes it much easier for the developers to manage bugs for different clients at once, because then a developer can query for bugs specific to a project in their email inbox.
+- Simple, intuitive and effective user interface.
+- Seamless user experience.
+
 # Demo:
 https://www.youtube.com/watch?v=1NZkYH_4QL0
 
