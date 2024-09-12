@@ -8,7 +8,7 @@ https://bugblaster.netlify.app
 - Secure authentication.
 - Client can find the link to their continuously deployed app in the same place as where they can raise issues to the developers.
 - An email is sent to the development team for each issue reported. This makes it much easier for the developers to manage bugs for different clients at once, because then a developer can query for bugs specific to a project in their email inbox.
-- Simple, intuitive and effective user interface.
+- Simple, intuitive and effective user interface for mobile and desktop devices.
 - Seamless user experience.
 
 # Demo:
